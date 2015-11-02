@@ -46,16 +46,17 @@ def main():
     else:
         if len(filesInDirectory) == 0:
             print("ERROR: There are no .hex files in the directory:\n%s\n" % (os.getcwd()))
-        elif len(filesInDirectory) == 1:
-            flash_file(filesInDirectory[0])
+        #elif len(filesInDirectory) == 1:
+        #    flash_file(filesInDirectory[0])
         else:
             count = 0
-            print("INPUT: Choose File to Upload:\n")
+            print("Found the following .hex files:\n")
             for i in filesInDirectory:
                 print("%d: %s" % (count, i))
                 count += 1
             try:
-                fileToUpload = input(); print('')
+                print("")
+                fileToUpload = input("Choose File to Upload: ");
                 flash_file(filesInDirectory[int(fileToUpload)])
             except:
                 print('ERROR: invalid input!\n')
