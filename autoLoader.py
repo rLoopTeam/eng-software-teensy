@@ -3,7 +3,10 @@
 import sys
 import os
 
+filesInDirectory = []
+teensyProcessorArg = "mk20dx256"
 hex_history_file = 'last_hex.txt'
+default_hex = 'teensy_flight.hex'
 
 def read_hex_history():
     file_last_hex = open(hex_history_file,'r')
@@ -18,28 +21,42 @@ def write_hex_history(hex_name):
 
 def flash_file(hex_name):
     write_hex_history(hex_name)
+    os.system("./teensy_loader_cli -mmcu=%s -vs %s" % (teensyProcessorArg, hex_name))
     print('uploading file "' + hex_name + '" ...')
     print('uploading done!\n')
 
 def main():
+
+    for file in os.listdir(os.getcwd()):
+        if file.endswith('.hex'):
+            filesInDirectory.append(file)
+
     if bool(len(sys.argv) - 1):
         if sys.argv[1] == '-c':
-            print('current ".hex" file is: "' + read_hex_history() + '"\n')
+            print('INFO: current ".hex" file is "' + read_hex_history() + '"\n')
         elif sys.argv[1] == '-f':
-            flash_file('teensy_flight.hex')
-        else:
-            if os.path.exists(sys.argv[1]):
-                flash_file(sys.argv[1])
+            if os.path.exists(default_hex):
+                flash_file(default_hex)
             else:
-                print('file "' + sys.argv[1] + '" does not exist!')
-                print('example: autoloader.py teensy_flight_test.hex\n')
-    else:
-        hex_name = raw_input('please provide the name of the hex file: \n')
-        if os.path.exists(hex_name):
-            flash_file(hex_name)
+                print('ERROR: file "' + default_hex + '" does not exist!\n')
         else:
-            print('file "' + hex_name + '" does not exist!')
-            print('example: autoloader.py teensy_flight_test.hex\n')
+            print('ERROR: the ' + sys.argv[1] + ' parameter is not recognized!\n')
+    else:
+        if len(filesInDirectory) == 0:
+            print("ERROR: There are no .hex files in the directory:\n%s\n" % (os.getcwd()))
+        elif len(filesInDirectory) == 1:
+            flash_file(filesInDirectory[0])
+        else:
+            count = 0
+            print("INPUT: Choose File to Upload:\n")
+            for i in filesInDirectory:
+                print("%d: %s" % (count, i))
+                count += 1
+            try:
+                fileToUpload = input(); print('')
+                flash_file(filesInDirectory[int(fileToUpload)])
+            except:
+                print('ERROR: invalid input!\n')
 
 if __name__ == '__main__':
     main()
