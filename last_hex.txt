@@ -1,1 +1,1 @@
-my.hex
+teensy_flight.hex

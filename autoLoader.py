@@ -2,6 +2,7 @@
 
 import sys
 import os
+from subprocess import check_output
 
 filesInDirectory = []
 teensyProcessorArg = "mk20dx256"
@@ -21,9 +22,10 @@ def write_hex_history(hex_name):
 
 def flash_file(hex_name):
     write_hex_history(hex_name)
-    os.system("./teensy_loader_cli -mmcu=%s -vs %s" % (teensyProcessorArg, hex_name))
-    print('uploading file "' + hex_name + '" ...')
-    print('uploading done!\n')
+    command = str("./teensy_loader_cli -mmcu=%s -vs %s" % (teensyProcessorArg, hex_name))
+    # os.system(command)
+    print(command + '\n')
+    print(check_output(command) + '\n')
 
 def main():
 
