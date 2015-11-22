@@ -1,0 +1,6 @@
+#!/bin/bash
+# echo $PWD
+python $PWD/autoLoader.py "$@"
+
+
+
