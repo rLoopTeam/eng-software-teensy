@@ -29,6 +29,10 @@ double RBrake_sp = 0;
 void setup(void) 
 {
 
+  int brakeStepperSpeed = 200; //We need to store & read this from flash
+  int gimbalStepperSpeed = 200; //We need to store & read this from flash
+  int datalogRate = 100;
+
   //Open the I2C interface to the Pi
   Wire.begin(I2C_MASTER,0,I2C_PINS_18_19,I2C_PULLUP_INT,I2C_RATE_1000);
 
@@ -37,11 +41,11 @@ void setup(void)
   Wire.endTransmission();
 
   //Setup the timer for the steppers
-  controlTimer.begin(BrakeStepperLoop, 1000000/BRAKE_STEPPER_SPEED);
-  controlTimer.begin(GimbalStepperLoop, 1000000/GIMBAL_STEPPER_SPEED);
+  brakeTimer.begin(BrakeStepperLoop, 1000000/brakeStepperSpeed);
+  gimbalTimer.begin(GimbalStepperLoop, 1000000/gimbalStepperSpeed);
 
   //Setup for the timer for the Pi data dump
-  controlTimer.begin(I2CLoop,1000000/PI_DATA_REFRESH_RATE);
+  datalogTimer.begin(I2CLoop,1000000/datalogRate);
 }
 
 void loop(void) 
@@ -50,8 +54,6 @@ void loop(void)
 
 void BrakeStepperLoop()
 {
-  bool forwardStep
-  
 }
 
 void GimbalStepperLoop()
