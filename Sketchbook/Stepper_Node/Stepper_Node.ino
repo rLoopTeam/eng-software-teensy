@@ -17,8 +17,6 @@ elapsedMillis freeCPU;
 elapsedMillis usedCPU;
 int lastUsed = 0;
 
-#define WDT_OUT 0
-
 double Gimbal1_sp = 0;
 double Gimbal2_sp = 0;
 double Gimbal3_sp = 0;
