@@ -1,0 +1,35 @@
+#define GIMBAL_1_HI_LIMIT 0
+#define GIMBAL_1_LOW_LIMIT 0
+#define GIMBAL_1_LVDT 0
+#define GIMBAL_1_STEP 0
+#define GIMBAL_1_DIR 0
+
+#define GIMBAL_2_HI_LIMIT 0
+#define GIMBAL_2_LOW_LIMIT 0
+#define GIMBAL_2_LVDT 0
+#define GIMBAL_2_STEP 0
+#define GIMBAL_2_DIR 0
+
+#define GIMBAL_3_HI_LIMIT 0
+#define GIMBAL_3_LOW_LIMIT 0
+#define GIMBAL_3_LVDT 0
+#define GIMBAL_3_STEP 0
+#define GIMBAL_3_DIR 0
+
+#define GIMBAL_4_HI_LIMIT 0
+#define GIMBAL_4_LOW_LIMIT 0
+#define GIMBAL_4_LVDT 0
+#define GIMBAL_4_STEP 0
+#define GIMBAL_4_DIR 0
+
+#define LBRAKE_HI_LIMIT 0
+#define LBRAKE_LOW_LIMIT 0
+#define LBRAKE_LVDT 0
+#define LBRAKE_STEP 0
+#define LBRAKE_DIR 0
+
+#define RBRAKE_HI_LIMIT 0
+#define RBRAKE_LOW_LIMIT 0
+#define RBRAKE_LVDT 0
+#define RBRAKE_STEP 0
+#define RBRAKE_DIR 0
