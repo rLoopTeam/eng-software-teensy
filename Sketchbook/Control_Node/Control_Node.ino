@@ -3,6 +3,7 @@
 #include <utility/imumaths.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <rPodI2C.h>
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
@@ -41,7 +42,24 @@ void setup(void)
   analogReadResolution(14);
 
   //Setup the 100Hz control loop timer
-  controlTimer.begin(ControlLoop, 10000);
+  //controlTimer.begin(ControlLoop, 10000);
+
+  rPodI2CbeginFrame();
+  rPodI2CaddParameter(1,(int8_t)-20);
+  rPodI2CaddParameter(2,(uint8_t)20);
+  rPodI2CaddParameter(3,(int16_t)-1000);
+  rPodI2CaddParameter(4,(uint16_t)1000);
+  rPodI2CaddParameter(5,(int32_t)-1000);
+  rPodI2CaddParameter(6,(uint32_t)1000);
+  rPodI2CaddParameter(7,(int64_t)-1000);
+  rPodI2CaddParameter(8,(uint64_t)1000);
+  rPodI2CaddParameter(9,(float)-250.25);
+  rPodI2CaddParameter(10,(double)-250.25);
+  rPodI2CendFrame();
+  
+  Wire.beginTransmission(51);
+  Wire.write(buffer,bufferPos);
+  Wire.endTransmission();
 }
 
 void loop(void) 
@@ -50,76 +68,23 @@ void loop(void)
 
 void ControlLoop(void)
 {
-  Wire.beginTransmission(51);
 
-  Wire.print("CPU: ");
-  Wire.print(lastUsed);
-  Wire.print("/");
-  Wire.print(lastUsed+freeCPU);
+  rPodI2CbeginFrame();
   
-  usedCPU = 0;
   
   /* Get a new sensor event */ 
   sensors_event_t event; 
   bno.getEvent(&event);
 
-  Wire.print(" Seq: ");
-  Wire.print(String(i));
-  Wire.print(" X: ");
-  Wire.print(String(event.orientation.x));
-  Wire.print(" Y: ");
-  Wire.print(String(event.orientation.y));
-  Wire.print(" Z: ");
-  Wire.print(String(event.orientation.z));
 
   int ana0 = analogRead(0);
-  int ana1 = analogRead(1);
-  int ana2 = analogRead(2);
-  int ana3 = analogRead(3);
-  int ana6 = analogRead(6);
-  int ana7 = analogRead(7);
-  int ana8 = analogRead(8);
-  int ana9 = analogRead(9);
-  int ana10 = analogRead(10);
-  int ana11 = analogRead(11);
-  int ana12 = analogRead(12);
 
-  Wire.print(" A0: ");
-  Wire.print(String((double)ana0/4964.8484849));
-  Wire.print("V");
+  rPodI2CaddParameter(1,(uint16_t)ana0);
+  rPodI2CaddParameter(2,(uint16_t)i);
+  rPodI2CendFrame();
 
-  Wire.print(" A1: ");
-  Wire.print(String((double)ana1/4964.8484849));
-
-  Wire.print(" A2: ");
-  Wire.print(String(ana2));
-
-  Wire.print(" A3: ");
-  Wire.print(String(ana3));
-
-  Wire.print(" A6: ");
-  Wire.print(String(ana6));
-
-  Wire.print(" A7: ");
-  Wire.print(String(ana7));
-
-  Wire.print(" A8: ");
-  Wire.print(String(ana8));
-
-  Wire.print(" A9: ");
-  Wire.print(String(ana9));
-
-  Wire.print(" A10: ");
-  Wire.print(String(ana10));
-
-  Wire.print(" A11: ");
-  Wire.print(String(ana11));
-
-  Wire.print(" A12: ");
-  Wire.print(String(ana12));
-
-  Wire.print("\n");
- 
+  Wire.beginTransmission(51);
+  Wire.write(buffer,bufferPos);
   Wire.endTransmission();
 
   lastUsed = usedCPU;
