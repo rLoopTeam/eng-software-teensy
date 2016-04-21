@@ -1,7 +1,7 @@
 
 #include <i2c_t3.h>
 #include "kinetis.h"
-#include ContrastSensors.c"
+#include <rPodI2C.h>
 
 IntervalTimer controlTimer;
 elapsedMillis freeCPU;
@@ -327,76 +327,92 @@ void ControlLoop(void)
   usedCPU = 0;
   i++;
 
+rPodI2CbeginFrame();
+
   //Wire.print(" Seq: ");
-  Wire.print(String(i));
-  Wire.print(" ");  
+  //Wire.print(String(i));
+  rPodI2CaddParameter(1,(uint16_t)i);
+  //Wire.print(" ");  
 
   //Wire.print(" Time: ");
-  Wire.print(String(micros()));
-  Wire.print(" ");
-
+  //Wire.print(String(micros()));
+  
+  //Wire.print(" ");
+  
+  
+  
   //Wire.print(" F: ");
-  Wire.print(String(fReflectHits));
-  Wire.print(" ");
+  //Wire.print(String(fReflectHits));
+  rPodI2CaddParameter(2,(uint16_t)fReflectHits);
+  rPodI2CaddParameter(3,(uint16_t)mReflectHits);
+  rPodI2CaddParameter(4,(uint16_t)rReflectHits);
+  //Wire.print(" ");
 
   //Wire.print(" M: ");
-  Wire.print(String(mReflectHits));
-  Wire.print(" ");
+  //Wire.print(String(mReflectHits));
+  
+  //Wire.print(" ");
 
   //Wire.print(" R: ");
-  Wire.print(String(rReflectHits));
-  Wire.print(" ");
+  //Wire.print(String(rReflectHits));
+  //Wire.print(" ");
 
   //Wire.print(" speed: ");
-  Wire.print(String(currentSpeed));
+  //Wire.print(String(currentSpeed));
+  rPodI2CaddParameter(5,(uint16_t)currentSpeed);
   //Wire.print(" mph ");
-  Wire.print(" ");
+  //Wire.print(" ");
 
   //Wire.print(" position: ");
-  Wire.print(String(currentTubePos));
-  Wire.print(" ");
+  //Wire.print(String(currentTubePos));
+  rPodI2CaddParameter(6,(uint16_t)currentTubePos);
+  //Wire.print(" ");
 
   Wire.print(" W1: ");
   Wire.print(String(wheel1));
-  Wire.print(" ");
+  //Wire.print(" ");
 
   Wire.print(" W2: ");
   Wire.print(String(wheel2));
-  Wire.print(" ");
+  //Wire.print(" ");
 
   Wire.print(" W3: ");
   Wire.print(String(wheel3));
-  Wire.print(" ");
+  //Wire.print(" ");
 
   Wire.print(" W4: ");
   Wire.print(String(wheel4));
-  Wire.print(" ");
+  //Wire.print(" ");
 
   Wire.print(" FPGA_ACCEL: ");
   Wire.print(String(((double)accel)/9800));
-  Wire.print(" ");
+  //Wire.print(" ");
 
-  Wire.print(" FPGA_VEL: ");
-  Wire.print(String(((double)vel)/1000000.0));
-  Wire.print(" ");
+  //Wire.print(" FPGA_VEL: ");
+  //Wire.print(String(((double)vel)/1000000.0));
+  //Wire.print(" ");
 
-  Wire.print(" FPGA_VEL_MPH: ");
-  Wire.print(String(vel/447039.0));
-  Wire.print(" ");
+  //Wire.print(" FPGA_VEL_MPH: ");
+  //Wire.print(String(vel/447039.0));
+  //Wire.print(" ");
 
 
-  Wire.print(" FPGA_POS: ");
-  Wire.print(String(pos));
+  //Wire.print(" FPGA_POS: ");
+  //Wire.print(String(pos));
 
-  Wire.print(" FTM1: ");
-  Wire.print(String(FTM1_CNT));
+  //Wire.print(" FTM1: ");
+  //Wire.print(String(FTM1_CNT));
 
-  Wire.print(" LPTMR: ");
+  //Wire.print(" LPTMR: ");
   LPTMR0_CNR=0;
-  Wire.print(String(LPTMR0_CNR));
+  //Wire.print(String(LPTMR0_CNR));
 
-  Wire.print("\n");
+  //Wire.print("\n");
  
+  //Wire.endTransmission();
+
+  Wire.beginTransmission(51);
+  Wire.write(buffer,bufferPos);
   Wire.endTransmission();
 
   lastUsed = usedCPU;

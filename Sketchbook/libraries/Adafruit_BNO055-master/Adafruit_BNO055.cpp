@@ -55,9 +55,8 @@ Adafruit_BNO055::Adafruit_BNO055(int32_t sensorID, uint8_t address)
 bool Adafruit_BNO055::begin(adafruit_bno055_opmode_t mode)
 {
   /* Enable I2C */
-	Wire1.begin(I2C_MASTER, 0, I2C_PINS_26_31, I2C_PULLUP_INT, I2C_RATE_100);
-	//Wire1.begin(I2C_MASTER, 0, I2C_PINS_29_30, I2C_PULLUP_INT, I2C_RATE_100);
-
+	//Wire1.begin(I2C_MASTER, 0, I2C_PINS_26_31, I2C_PULLUP_INT, I2C_RATE_100);
+	Wire1.begin(I2C_MASTER, 0, I2C_PINS_29_30, I2C_PULLUP_INT, I2C_RATE_100);
 
   /* Make sure we have the right device */
   uint8_t id = read8(BNO055_CHIP_ID_ADDR);
