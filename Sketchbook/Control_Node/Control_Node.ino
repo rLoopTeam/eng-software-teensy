@@ -3,7 +3,8 @@
 #include <utility/imumaths.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <rPodI2C.h>
+#include <rI2CTX.h>
+#include <rI2CRX.h>
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
@@ -37,9 +38,12 @@ void setup(void)
 
   analogReadResolution(14);
 
+  rI2CRX_begin(20);
+
   //Setup the 100Hz control loop timer
   //25 Hz for now
   controlTimer.begin(ControlLoop, 10000*50);
+  
 }
 
 void loop(void) 
@@ -53,11 +57,11 @@ void ControlLoop(void)
   sensors_event_t event; 
   bno.getEvent(&event);
 
-  rPodI2CbeginFrame();
+  rI2CTX_beginFrame();
   
-  rPodI2CaddParameter(1,event.orientation.x);
-  rPodI2CaddParameter(2,event.orientation.y);
-  rPodI2CaddParameter(3,event.orientation.z);/*
+  rI2CTX_addParameter(1,event.orientation.x);
+  rI2CTX_addParameter(2,event.orientation.y);
+  rI2CTX_addParameter(3,event.orientation.z);/*
   rPodI2CaddParameter(4,(uint16_t)1000);
   rPodI2CaddParameter(5,(int32_t)-1000);
   rPodI2CaddParameter(6,(uint32_t)1000);
@@ -68,11 +72,11 @@ void ControlLoop(void)
 
 
 
-  rPodI2CaddParameter(11,i);
-  rPodI2CendFrame();
+  rI2CTX_addParameter(11,i);
+  rI2CTX_endFrame();
 
   Wire.beginTransmission(51);
-  Wire.write(buffer,bufferPos);
+  Wire.write(rI2CTX_buffer,rI2CTX_bufferPos);
   Wire.endTransmission();
 
   lastUsed = usedCPU;
