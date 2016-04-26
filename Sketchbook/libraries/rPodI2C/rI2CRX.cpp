@@ -186,17 +186,7 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 						}
 						else{ break; } //Somethings not right
 
-						//float floatingType = 0;
-						//double doubleType = 0;	
-						//uint64_t rawFloatingData = be64toh((uint64_t)rawData);
-						//memcpy(&doubleType,&rawFloatingData,8);
-						//rawFloatingData = rawFloatingData >> 32;
-						//memcpy(&floatingType,&rawFloatingData,4);
-
 						receiveParam(frameBuffer[position], frameBuffer[position + 1], rawData);
-
-						//TODODODOTO
-
 
 					}
 					else if (dataType == 0){
@@ -234,7 +224,6 @@ void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
 	switch (type)
 	{
 		case 0x11:	receivedParam.val = malloc(1);
-					int8_t data;
 					*((int8_t*)receivedParam.val) = (int8_t)rawData;
 					receivedParam.length = 1;
 					break;
@@ -263,7 +252,7 @@ void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
 					receivedParam.length = 4;
 					break;
 
-					/*
+					
 		case 0x81: 	receivedParam.val = malloc(8);
 					*((int64_t*)receivedParam.val) = (int64_t)be64toh((uint64_t)rawData);
 					receivedParam.length = 8;
@@ -273,17 +262,20 @@ void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
 					*((uint64_t*)receivedParam.val) = be64toh((uint64_t)rawData);
 					receivedParam.length = 8;
 					break;
-
+					
 		case 0x43:	receivedParam.val = malloc(4);
-					*((float*)receivedParam.val) = (float)floatingType;
+					rawData = be64toh((uint64_t)rawData);
+					rawData = rawData >> 32;
+					memcpy(receivedParam.val, &rawData, 4);
 					receivedParam.length = 4;
 					break;
-
+					
 		case 0x83:	receivedParam.val = malloc(8);
-					*((double*)receivedParam.val) = (double)doubleType;
+					rawData = be64toh((uint64_t)rawData);
+					memcpy(receivedParam.val, &rawData, 8);
 					receivedParam.length = 8;
 					break;
-					*/
+					
 		default:return;
 	}
 	rI2CRX_recvDecParamCB(receivedParam);

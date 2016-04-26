@@ -31,7 +31,7 @@ enum rI2C_paramTypes
 	rI2C_UINT32 = 0x42,
 	rI2C_INT64 = 0x81,
 	rI2C_UINT64 = 0x82,
-	rI2C_FLOATING = 0x43,
+	rI2C_FLOAT = 0x43,
 	rI2C_DOUBLE = 0x83
 };
 

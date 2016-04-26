@@ -19,6 +19,10 @@ int8_t test_int8_t;
 uint8_t test_uint8_t;
 int16_t test_int16_t;
 uint16_t test_uint16_t;
+int64_t test_int64_t;
+uint64_t test_uint64_t;
+float test_float;
+double test_double;
 
 void recvParam(rI2CRX_decParam decParam);
 
@@ -48,6 +52,8 @@ void setup(void)
   test_uint8_t=0;
   test_int16_t=0;
   test_uint16_t=0;
+  test_float = 250.2;
+  test_double = 200.4;
   
   rI2CRX_begin();
 
@@ -58,9 +64,6 @@ void setup(void)
   //Setup the 100Hz control loop timer
   controlTimer.begin(ControlLoop, 10000*100);
 
-    Serial.begin(9600); // USB is always 12 Mbit/sec
-  Serial.println("Here");
-
 }
 
 void loop(void) 
@@ -69,12 +72,12 @@ void loop(void)
 
 void gotAFrame()
 {
-  Serial.println("SOF");
+
 }
 
 void endFrame()
 {
-  Serial.println("EOF");
+
 }
 
 //Called whenever a new
@@ -82,9 +85,6 @@ void endFrame()
 //Pi via the I2C bus
 void recvParam(rI2CRX_decParam decParam)
 {
-  Serial.print("Parameter: ");
-  Serial.println(String(decParam.index));
-  
     if(decParam.index == 0 && decParam.type == rI2C_INT8)
       test_int8_t = *((int8_t*)decParam.val);
     if(decParam.index == 1 && decParam.type == rI2C_UINT8)
@@ -93,6 +93,16 @@ void recvParam(rI2CRX_decParam decParam)
       test_int16_t = *((int16_t*)decParam.val);
     if(decParam.index == 3 && decParam.type == rI2C_UINT16)
       test_uint16_t = *((uint16_t*)decParam.val);
+    if(decParam.index == 4 && decParam.type == rI2C_INT64)
+      test_int64_t = *((int64_t*)decParam.val);
+    if(decParam.index == 5 && decParam.type == rI2C_UINT64)
+      test_uint64_t = *((uint64_t*)decParam.val);
+      
+    if(decParam.index == 6 && decParam.type == rI2C_FLOAT)
+      test_float = *((float*)decParam.val);
+    if(decParam.index == 7 && decParam.type == rI2C_DOUBLE)
+      test_double = *((double*)decParam.val);
+      
 }
 
 void ControlLoop(void)
@@ -122,6 +132,11 @@ void ControlLoop(void)
   rI2CTX_addParameter(12,(uint8_t)test_uint8_t);
   rI2CTX_addParameter(13,(int16_t)test_int16_t);
   rI2CTX_addParameter(14,(uint16_t)test_uint16_t);
+  rI2CTX_addParameter(15,(int64_t)test_int64_t);
+  rI2CTX_addParameter(16,(uint64_t)test_uint64_t);
+  rI2CTX_addParameter(17,(float)test_float);
+  rI2CTX_addParameter(18,(double)test_double);
+
 
   rI2CTX_addParameter(15,i);
   rI2CTX_endFrame();
@@ -130,13 +145,11 @@ void ControlLoop(void)
   Wire.write(rI2CTX_buffer,rI2CTX_bufferPos);
   Wire.endTransmission();
 
-  Wire.requestFrom(51,50);
+  Wire.requestFrom(51,100);
   uint8_t recvByte;
   while(Wire.available())
   {
     recvByte = Wire.read();
-    Serial.print("Got a byte ");
-    Serial.println(String(recvByte));
     rI2CRX_receiveBytes(&recvByte,1);
   }
 
