@@ -16,13 +16,9 @@ struct rI2CRX_decParam{
 	void *val;
 };
 
-typedef void (*rI2CRX_frameRXBegin)();
-typedef void(*rI2CRX_recvDecParam)(rI2CRX_decParam decParam);
-typedef void (*rI2CRX_frameRXEnd)();
-
-extern rI2CRX_frameRXBegin rI2CRX_frameRXBeginCB;
-extern rI2CRX_recvDecParam rI2CRX_recvDecParamCB;
-extern rI2CRX_frameRXEnd rI2CRX_frameRXEndCB;
+extern void (*rI2CRX_frameRXBeginCB) ();
+extern void (*rI2CRX_recvDecParamCB) (rI2CRX_decParam decParam);
+extern void (*rI2CRX_frameRXEndCB) ();
 
 
 enum rI2C_paramTypes

@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
 #ifndef ARDUINO_ARCH_AVR
 	#include <netinet/in.h>
 	#include <endian.h>
@@ -16,12 +19,13 @@ uint8_t buffer[I2C_BUFFER_SIZE];
 uint16_t bufferBegin;
 uint16_t bufferLength;
 
-rI2CRX_frameRXBegin rI2CRX_frameRXBeginCB;
-rI2CRX_recvDecParam rI2CRX_recvDecParamCB;
-rI2CRX_frameRXEnd rI2CRX_frameRXEndCB;
+void(*rI2CRX_frameRXBeginCB)();
+void(*rI2CRX_recvDecParamCB)(rI2CRX_decParam decParam);
+void(*rI2CRX_frameRXEndCB)();
 
 void processBuffer();
 void processFrame(uint8_t *frameBuffer, uint16_t length);
+void receiveParam(uint8_t type, uint8_t index, uint64_t rawData);
 
 void rI2CRX_begin()
 {
@@ -139,6 +143,7 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 	if (rI2CRX_frameRXBeginCB != NULL)
 		rI2CRX_frameRXBeginCB();
 
+
 	//Shorten any escaped data now that we've isolated a single frame
 	for (i = 2; i < length-1; i++)
 	{
@@ -188,6 +193,8 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 						//rawFloatingData = rawFloatingData >> 32;
 						//memcpy(&floatingType,&rawFloatingData,4);
 
+						receiveParam(frameBuffer[position], frameBuffer[position + 1], rawData);
+
 						//TODODODOTO
 
 
@@ -213,8 +220,8 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 		}
 	}
 
-	if (rI2CRX_frameRXEndCB != NULL)
-		rI2CRX_frameRXEndCB();
+	//if (rI2CRX_frameRXEndCB != NULL)
+	//	rI2CRX_frameRXEndCB();
 	
 }
 
@@ -222,11 +229,12 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
 {
 	rI2CRX_decParam receivedParam;
-
+	receivedParam.index = index;
 	receivedParam.type = type;
 	switch (type)
 	{
 		case 0x11:	receivedParam.val = malloc(1);
+					int8_t data;
 					*((int8_t*)receivedParam.val) = (int8_t)rawData;
 					receivedParam.length = 1;
 					break;
@@ -236,7 +244,7 @@ void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
 					break;
 
 		case 0x21:	receivedParam.val = malloc(2);
-					*((int16_t*)receivedParam.val) = (int16_t)ntohs((uint16_t)rawData);
+					*((int16_t*)receivedParam.val) = (int16_t)ntohs((int16_t)rawData);
 					receivedParam.length = 2;	
 					break;
 
