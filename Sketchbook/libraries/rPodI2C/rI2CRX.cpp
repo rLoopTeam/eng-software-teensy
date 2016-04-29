@@ -210,10 +210,14 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 		}
 	}
 
-	//if (rI2CRX_frameRXEndCB != NULL)
-	//	rI2CRX_frameRXEndCB();
+		rI2CRX_frameRXEndCB();
 	
 }
+
+int8_t temp_1byte;
+int16_t temp_2byte;
+int32_t temp_4byte;
+int64_t temp_8byte;
 
 
 void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
@@ -223,54 +227,53 @@ void receiveParam(uint8_t type, uint8_t index, uint64_t rawData)
 	receivedParam.type = type;
 	switch (type)
 	{
-		case 0x11:	receivedParam.val = malloc(1);
+		case 0x11:	receivedParam.val = &temp_1byte;
 					*((int8_t*)receivedParam.val) = (int8_t)rawData;
 					receivedParam.length = 1;
 					break;
-		case 0x12:	receivedParam.val = malloc(1);
+		case 0x12:	receivedParam.val = &temp_1byte;
 					*((uint8_t*)receivedParam.val) = (uint8_t)rawData;
 					receivedParam.length = 1;
 					break;
 
-		case 0x21:	receivedParam.val = malloc(2);
+		case 0x21:	receivedParam.val = &temp_2byte;
 					*((int16_t*)receivedParam.val) = (int16_t)ntohs((int16_t)rawData);
 					receivedParam.length = 2;	
 					break;
 
-		case 0x22: 	receivedParam.val = malloc(2);
+		case 0x22: 	receivedParam.val = &temp_2byte;
 					*((uint16_t*)receivedParam.val) = ntohs((uint16_t)rawData);
 					receivedParam.length = 2;
 					break;
 
-		case 0x41: 	receivedParam.val = malloc(4);
+		case 0x41: 	receivedParam.val = &temp_4byte;
 					*((int32_t*)receivedParam.val) = ntohl((int32_t)rawData);
 					receivedParam.length = 4;
 					break;
 
-		case 0x42: 	receivedParam.val = malloc(4);
+		case 0x42: 	receivedParam.val = &temp_4byte;
 					*((uint32_t*)receivedParam.val) = ntohl((uint32_t)rawData);
 					receivedParam.length = 4;
 					break;
-
 					
-		case 0x81: 	receivedParam.val = malloc(8);
+		case 0x81: 	receivedParam.val = &temp_8byte;
 					*((int64_t*)receivedParam.val) = (int64_t)be64toh((uint64_t)rawData);
 					receivedParam.length = 8;
 					break;
 
-		case 0x82:	receivedParam.val = malloc(8);
+		case 0x82:	receivedParam.val = &temp_8byte;
 					*((uint64_t*)receivedParam.val) = be64toh((uint64_t)rawData);
 					receivedParam.length = 8;
 					break;
 					
-		case 0x43:	receivedParam.val = malloc(4);
+		case 0x43:	receivedParam.val = &temp_4byte;
 					rawData = be64toh((uint64_t)rawData);
 					rawData = rawData >> 32;
 					memcpy(receivedParam.val, &rawData, 4);
 					receivedParam.length = 4;
 					break;
 					
-		case 0x83:	receivedParam.val = malloc(8);
+		case 0x83:	receivedParam.val = &temp_8byte;
 					rawData = be64toh((uint64_t)rawData);
 					memcpy(receivedParam.val, &rawData, 8);
 					receivedParam.length = 8;
