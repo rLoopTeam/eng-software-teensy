@@ -24,7 +24,7 @@ void(*rI2CRX_recvDecParamCB)(rI2CRX_decParam decParam);
 void(*rI2CRX_frameRXEndCB)();
 
 void processBuffer();
-void processFrame(uint8_t *frameBuffer, uint16_t length);
+bool processFrame(uint8_t *frameBuffer, uint16_t length);
 void receiveParam(uint8_t type, uint8_t index, uint64_t rawData);
 
 void rI2CRX_begin()
@@ -55,7 +55,15 @@ void rI2CRX_receiveBytes(uint8_t* data, uint16_t length)
 		buffer[(i + bufferBegin + bufferLength)%I2C_BUFFER_SIZE] = data[i];
 	bufferLength += length;
 
-	processBuffer();
+	//See if there's enough data for a full frame
+	if (bufferLength >= 8){
+		processBuffer();
+	}
+	else
+	{
+		//Not enough data for a full frame, do nothing
+	}
+
 }
 
 void processBuffer()
@@ -98,10 +106,10 @@ void processBuffer()
 					}
 
 					//Process the frame!
-					processFrame(frameBuffer, frameLength + 4);
-
-					i += frameLength + headerLength;
-					bufferBeginJump += headerLength + frameLength;
+					if (processFrame(frameBuffer, frameLength + 4)){
+						i += frameLength + headerLength;
+						bufferBeginJump += headerLength + frameLength;
+					}
 				}
 				else{
 					//We have a start code, but not enough data for a full frame yet
@@ -124,11 +132,11 @@ void processBuffer()
 
 }
 
-void processFrame(uint8_t *frameBuffer, uint16_t length)
+bool processFrame(uint8_t *frameBuffer, uint16_t length)
 {
 	//Check the start and end headers
 	if (frameBuffer[0] != I2C_CONTROL_CHAR || frameBuffer[1] != I2C_FRAME_START || frameBuffer[length - 4] != I2C_CONTROL_CHAR || frameBuffer[length - 3] != I2C_FRAME_END)
-		return;
+		return false;
 
 	int i = 0;
 	uint8_t checksum = 0;
@@ -136,7 +144,7 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 		checksum ^= frameBuffer[i];
 
 	if (frameBuffer[length - 2] != checksum){
-		return;
+		return false;
 	}
 	else {} //All good, continue on
 
@@ -200,7 +208,7 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 			case I2C_FRAME_END:
 				if (rI2CRX_frameRXEndCB != NULL)
 					rI2CRX_frameRXEndCB();
-				return;
+				return true;
 				break;
 			}
 		}
@@ -211,7 +219,7 @@ void processFrame(uint8_t *frameBuffer, uint16_t length)
 	}
 
 		rI2CRX_frameRXEndCB();
-	
+		return true;
 }
 
 int8_t temp_1byte;
