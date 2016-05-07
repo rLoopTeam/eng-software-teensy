@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
+#ifdef ARDUINO_ARCH_AVR
+	#include <avr/io.h>
+	#include <avr/interrupt.h>
+#endif
 
 #ifndef ARDUINO_ARCH_AVR
 	#include <netinet/in.h>
