@@ -152,7 +152,7 @@ bool processFrame(uint8_t *frameBuffer, uint16_t length)
 
 	if (rI2CRX_frameRXBeginCB != NULL)
 		rI2CRX_frameRXBeginCB();
-
+	
 
 	//Shorten any escaped data now that we've isolated a single frame
 	for (i = 2; i < length-1; i++)
@@ -168,7 +168,7 @@ bool processFrame(uint8_t *frameBuffer, uint16_t length)
 		}
 		else{}//no escaped data here, continue on.
 	}
-
+	
 	uint16_t position = 4;
 	uint64_t rawData;
 	while (position < length)
@@ -181,8 +181,6 @@ bool processFrame(uint8_t *frameBuffer, uint16_t length)
 			case I2C_PARAMETER_START:
 				{
 					position++;
-
-					printf("Parameter %d, ", frameBuffer[position + 1]);
 
 					int dataType = frameBuffer[position] & 0x0F;
 					uint8_t dataSize = (frameBuffer[position] & 0xF0) / 16;

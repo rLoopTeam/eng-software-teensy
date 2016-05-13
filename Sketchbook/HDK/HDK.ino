@@ -1,3 +1,5 @@
+#include <PulsePosition.h>
+
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
@@ -10,6 +12,11 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 uint16_t i = 0;
 int BNO_Error = 0;
+
+PulsePositionOutput myOutput1;
+PulsePositionOutput myOutput2;
+PulsePositionOutput myOutput3;
+PulsePositionOutput myOutput4;
 
 IntervalTimer controlTimer;
 
@@ -30,33 +37,44 @@ float engine_max;
 //Define's ADC range based off of ADC resolution
 int ADCmaxValue;
 
+float servoMax[4];
+float servoMin[4];
+
 float blinkRate;
 int blinkCount;
 
 void updateOuputs()
 {
   int ADCmidpoint = ADCmaxValue / 2;
+  float servoRange;
+
 
   for(int i = 0;i<4;i++){
-    if (servoSV[i] > 1) servoSV[i] = 1;
-    if (servoSV[i] < -1) servoSV[i] = -1;
+    if (servoSV[i] > servoMax[i]) servoSV[i] = servoMax[i];
+    if (servoSV[i] < servoMin[i]) servoSV[i] = servoMin[i];
     servo[i] = servoSV[i] * ADCmidpoint + ADCmidpoint;
+    //servoRange = servoMax - servoMin;
+    //servo[i]=(servoRange*((servoSV[1]+1)/2) + servoMin) * ADCmidpoint + ADCmidpoint;
 
     if(engineSV[i] > 1)engineSV[i]= 1;
     if(engineSV[i] < 0) engineSV[i] = 0;
-    engine[i] = engineSV[i]*ADCmaxValue;
+    //engine[i] = engineSV[i]*ADCmaxValue;
+    engine[i] = engineSV[i]*(2500-300)+300;
   }
 
-/*
   analogWrite(5,servo[0]);
   analogWrite(6,servo[1]);
   analogWrite(9,servo[2]);
   analogWrite(10,servo[3]);
+  /*
   analogWrite(23,engine[0]);
   analogWrite(22,engine[1]);
   analogWrite(21,engine[2]);
   analogWrite(20,engine[3]);*/
-
+  myOutput1.write(1,engine[0]);
+  myOutput2.write(1,engine[1]);
+  myOutput3.write(1,engine[2]);
+  myOutput4.write(1,engine[3]);
 }
 
 void recvParam(rI2CRX_decParam decParam);
@@ -72,7 +90,17 @@ void setup(void)
   //  }
 
   //Let the BNO get settled
-  delay(1000);
+ // delay(1000);
+
+  servoMax[0] = -.5;
+  servoMax[1] = .2;
+  servoMax[2] = -.4;
+  servoMax[3] = .35;
+
+  servoMin[0] = -.1;
+  servoMin[1] = -.2;
+  servoMin[2] = 0;
+  servoMin[3] = -.1;
 
   //  bno.setExtCrystalUse(true);
 
@@ -85,8 +113,6 @@ void setup(void)
   rI2CRX_frameRXBeginCB = &gotAFrame;
   rI2CRX_frameRXEndCB = &endFrame;
 
-
-
   pinMode(5,OUTPUT);
   pinMode(6,OUTPUT);
   pinMode(9,OUTPUT);
@@ -98,14 +124,22 @@ void setup(void)
 
   pinMode(13,OUTPUT);
 
-  analogWriteFrequency(5,350); //PWM output at 350 Hz
-  analogWriteResolution(16); //PWM output at 16 bit resolution
+analogWriteResolution(16); //PWM output at 16 bit resolution
+  analogWriteFrequency(5,300); //PWM output at 350 Hz
+
+  myOutput1.begin(23);
+  myOutput2.begin(22);
+  myOutput3.begin(21);
+  myOutput4.begin(20);
+  
   ADCmaxValue = 65535;
   for(int i =0;i<4;i++){
     servoSV[i] = 0;
     engineSV[i] = 0;
   }
   Serial.begin(9600); // USB is always 12 Mbit/sec
+
+  updateOuputs();
 
   blinkRate = 50;
   blinkCount = 0;
