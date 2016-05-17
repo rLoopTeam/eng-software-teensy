@@ -290,7 +290,7 @@ void ControlLoop(void)
   Wire.write(rI2CTX_buffer, rI2CTX_bufferPos);
 
     transmitting = micros();
-  Wire.endTransmission(I2C_STOP, 1000);
+  Wire.endTransmission(I2C_STOP, 3000);
 
   transmitting = micros() - transmitting;
   
