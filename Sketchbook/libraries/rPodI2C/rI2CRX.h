@@ -3,7 +3,7 @@
 #ifndef TeensyI2CReceiver_H
 #define TeensyI2CReceiver_H
 
-#define I2C_BUFFER_SIZE 2000 
+#define I2C_BUFFER_SIZE 3000 
 #define I2C_CONTROL_CHAR 0xD5
 #define I2C_FRAME_START 0xD0
 #define I2C_PARAMETER_START 0xD3

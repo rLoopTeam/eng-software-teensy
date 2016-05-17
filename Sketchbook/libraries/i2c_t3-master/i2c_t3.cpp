@@ -803,7 +803,7 @@ uint8_t i2c_t3::endTransmission(struct i2cStruct* i2c, uint8_t bus, i2c_stop sen
     sendTransmission_(i2c, bus, sendStop, timeout);
 
     // wait for completion or timeout
-    finish_(i2c, bus, timeout);
+    //finish_(i2c, bus, timeout);
 
     return getError();
 }

@@ -25,7 +25,7 @@ uint16_t rI2CTX_endFrame()
 {
 	rI2CTX_frameLength = rI2CTX_bufferPos;
 
-	uint8_t length1 = (rI2CTX_frameLength & 0xFF00) >> 8;
+	uint8_t length1 = rI2CTX_frameLength >> 8;
 	uint8_t length2 = rI2CTX_frameLength & 0xFF;
 
 	if (length1 != RPOD_I2C_CONTROL_CHAR && length2 != RPOD_I2C_CONTROL_CHAR)

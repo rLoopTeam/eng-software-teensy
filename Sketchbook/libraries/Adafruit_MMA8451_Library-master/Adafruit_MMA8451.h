@@ -26,7 +26,7 @@
  #include "WProgram.h"
 #endif
 
-#include <Wire.h>
+#include<i2c_t3.h>
 
 #define USE_SENSOR    // Support the sesor library; comment out to compile/run without sensor library.
 #ifdef USE_SENSOR
@@ -95,7 +95,7 @@ class Adafruit_MMA8451
   Adafruit_MMA8451(int32_t id = -1);
 
 
-  bool begin(uint8_t addr = MMA8451_DEFAULT_ADDRESS);
+  bool begin(i2c_t3 *wire, uint8_t addr = MMA8451_DEFAULT_ADDRESS);
 
   void read();
 
@@ -117,6 +117,10 @@ class Adafruit_MMA8451
 
   void writeRegister8(uint8_t reg, uint8_t value);
  private:
+	 uint8_t i2cread(void);
+	 void i2cwrite(uint8_t x);
+
+	 i2c_t3	*_wire;
   uint8_t readRegister8(uint8_t reg);
   int32_t _sensorID;
   int8_t  _i2caddr;
