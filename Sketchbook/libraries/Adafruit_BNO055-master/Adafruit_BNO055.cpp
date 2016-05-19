@@ -58,6 +58,7 @@ bool Adafruit_BNO055::begin(i2c_t3 *wire, adafruit_bno055_opmode_t mode)
   /* Enable I2C */
 
 	_wire = wire;
+	_wire->setDefaultTimeout(3000);
 
   /* Make sure we have the right device */
   uint8_t id = read8(BNO055_CHIP_ID_ADDR);
