@@ -54,6 +54,9 @@ float startEngine;
 float angleSetPoint; 
 float errorI;
 
+float controlP;
+float controlI;
+
 void updateOuputs()
 {
   int ADCmidpoint = ADCmaxValue / 2;
@@ -102,11 +105,12 @@ void recvParam(rI2CRX_decParam decParam);
 void setup(void)
 {
 
+
   pinMode(15,OUTPUT);
   digitalWrite(15,HIGH);
   
   Wire1.begin(I2C_MASTER, 0, I2C_PINS_29_30, I2C_PULLUP_INT, I2C_RATE_100);
-  
+
   do{
     BNO_Error = 0;
   
@@ -134,6 +138,7 @@ void setup(void)
 
   //Open the I2C interface to the Pi
   Wire.begin(I2C_MASTER, 0, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000, I2C_OP_MODE_DMA);
+  Wire.resetBus();
 
   rI2CRX_begin();
 
@@ -160,7 +165,7 @@ void setup(void)
     engineSV[i] = 0;
   }
 
-  servoNeutral[0] = .1;
+  servoNeutral[0] = .05;
   servoNeutral[1] = .1;
   servoNeutral[2] = .1;
   servoNeutral[3] = .1;
@@ -189,15 +194,18 @@ void setup(void)
 
   delay(2000);
 
-  engineSV[0] = .9;
-  engineSV[1] = .9;
-  engineSV[2] = .9;
-  engineSV[3] = .9;
+  engineSV[0] = .8;
+  engineSV[1] = .8;
+  engineSV[2] = .8;
+  engineSV[3] = .8;
 
   updateOuputs();
 
   blinkRate = 50;
   blinkCount = 0;
+
+  controlP = .005;
+  controlI = .0;
 
   //The I2C Library needs to be able to fire some interrupts
   //during our control loop to manage the start & stop
@@ -266,8 +274,14 @@ void recvParam(rI2CRX_decParam decParam)
     else
       raw = false;
 
+  
   if(decParam.index == 16 && decParam.type == rI2C_FLOAT)
     angleSetPoint = *((float*)decParam.val);
+
+  if(decParam.index == 17 && decParam.type == rI2C_FLOAT)
+    controlP = *((float*)decParam.val);
+  if(decParam.index == 18 && decParam.type == rI2C_FLOAT)
+    controlI = *((float*)decParam.val);
     
   if(decParam.index == 100 && decParam.type == rI2C_FLOAT)
     blinkRate = *((float*)decParam.val);
@@ -302,11 +316,11 @@ void ControlLoop(void)
     currentAngle = currentAngle-360;
 
   float error = angleSetPoint - currentAngle;
-  error = error * .003;
-  if(error > .4) error = .4;
-  if(error < -.4) error = -.4;
+  error = error * controlP;
+  if(error > .1) error = .1;
+  if(error < -.1) error = -.1;
   
-  errorI += error * .0001;
+  errorI += error * controlI;
   if(errorI > .2) errorI = .2;
   if(errorI < -.2) errorI = -.2;
   
@@ -352,7 +366,6 @@ void ControlLoop(void)
 
   readingPi = micros();
 
-  int request = 100;
   Wire.requestFrom(51, 100, 500);
   uint8_t recvByte;
 

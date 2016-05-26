@@ -60,7 +60,7 @@ bool Adafruit_BNO055::begin(i2c_t3 *wire, adafruit_bno055_opmode_t mode)
 	_wire = wire;
 	_wire->setDefaultTimeout(3000);
 
-	//Make sure we're on page 2
+	//Make sure we're on page 0
 	write8(BNO055_PAGE_ID_ADDR, 0);
 
   /* Make sure we have the right device */
