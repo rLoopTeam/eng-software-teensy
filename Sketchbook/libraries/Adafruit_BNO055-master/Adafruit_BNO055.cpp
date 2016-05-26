@@ -16,6 +16,8 @@
 
   MIT license, all text above must be included in any redistribution
  ***************************************************************************/
+#include <EEPROM.h>
+
 
 #if ARDUINO >= 100
  #include "Arduino.h"
@@ -448,6 +450,85 @@ bool Adafruit_BNO055::getSensorOffsets(adafruit_bno055_offsets_t &offsets_type)
     return false;
 }
 
+bool Adafruit_BNO055 ::writeSensorOffsetsToEEPROM(int address)
+{
+	if (isFullyCalibrated())
+	{
+		EEPROM.write(address + 00, 0xAB);//To signal there's valid calibration data ahead
+
+		EEPROM.write(address + 1, read8(ACCEL_OFFSET_X_MSB_ADDR));
+		EEPROM.write(address + 2, read8(ACCEL_OFFSET_X_LSB_ADDR));
+		EEPROM.write(address + 3, read8(ACCEL_OFFSET_Y_MSB_ADDR));
+		EEPROM.write(address + 4, read8(ACCEL_OFFSET_Y_LSB_ADDR));
+		EEPROM.write(address + 5, read8(ACCEL_OFFSET_Z_MSB_ADDR));
+		EEPROM.write(address + 6, read8(ACCEL_OFFSET_Z_LSB_ADDR));
+
+		EEPROM.write(address + 7, read8(GYRO_OFFSET_X_MSB_ADDR));
+		EEPROM.write(address + 8, read8(GYRO_OFFSET_X_LSB_ADDR));
+		EEPROM.write(address + 9, read8(GYRO_OFFSET_Y_MSB_ADDR));
+		EEPROM.write(address + 10, read8(GYRO_OFFSET_Y_LSB_ADDR));
+		EEPROM.write(address + 11, read8(GYRO_OFFSET_Z_MSB_ADDR));
+		EEPROM.write(address + 12, read8(GYRO_OFFSET_Z_LSB_ADDR));
+
+		EEPROM.write(address + 13, read8(MAG_OFFSET_X_MSB_ADDR));
+		EEPROM.write(address + 14, read8(MAG_OFFSET_X_LSB_ADDR));
+		EEPROM.write(address + 15, read8(MAG_OFFSET_Y_MSB_ADDR));
+		EEPROM.write(address + 16, read8(MAG_OFFSET_Y_LSB_ADDR));
+		EEPROM.write(address + 17, read8(MAG_OFFSET_Z_MSB_ADDR));
+		EEPROM.write(address + 18, read8(MAG_OFFSET_Z_LSB_ADDR));
+			
+		EEPROM.write(address + 19, read8(ACCEL_RADIUS_MSB_ADDR));
+		EEPROM.write(address + 20, read8(ACCEL_RADIUS_LSB_ADDR));
+		EEPROM.write(address + 21, read8(MAG_RADIUS_MSB_ADDR));
+		EEPROM.write(address + 22, read8(MAG_RADIUS_LSB_ADDR));
+
+		return true;
+	}
+
+	return false;
+}
+
+bool Adafruit_BNO055::readSensorOffsetsFromEEPROM(int address)
+{
+	if (EEPROM.read(address + 00) == 0xAB)
+	{
+		adafruit_bno055_opmode_t lastMode = _mode;
+		setMode(OPERATION_MODE_CONFIG);
+		delay(25);
+
+		write8(ACCEL_OFFSET_X_MSB_ADDR, EEPROM.read(address + 1));
+		write8(ACCEL_OFFSET_X_LSB_ADDR, EEPROM.read(address + 2));
+		write8(ACCEL_OFFSET_Y_MSB_ADDR, EEPROM.read(address + 3));
+		write8(ACCEL_OFFSET_Y_LSB_ADDR, EEPROM.read(address + 4));
+		write8(ACCEL_OFFSET_Z_MSB_ADDR, EEPROM.read(address + 5));
+		write8(ACCEL_OFFSET_Z_LSB_ADDR, EEPROM.read(address + 6));
+
+		write8(GYRO_OFFSET_X_MSB_ADDR, EEPROM.read(address + 7));
+		write8(GYRO_OFFSET_X_LSB_ADDR, EEPROM.read(address + 8));
+		write8(GYRO_OFFSET_Y_MSB_ADDR, EEPROM.read(address + 9));
+		write8(GYRO_OFFSET_Y_LSB_ADDR, EEPROM.read(address + 10));
+		write8(GYRO_OFFSET_Z_MSB_ADDR, EEPROM.read(address + 11));
+		write8(GYRO_OFFSET_Z_LSB_ADDR, EEPROM.read(address + 12));
+
+		write8(MAG_OFFSET_X_MSB_ADDR, EEPROM.read(address + 13));
+		write8(MAG_OFFSET_X_LSB_ADDR, EEPROM.read(address + 14));
+		write8(MAG_OFFSET_Y_MSB_ADDR, EEPROM.read(address + 15));
+		write8(MAG_OFFSET_Y_LSB_ADDR, EEPROM.read(address + 16));
+		write8(MAG_OFFSET_Z_MSB_ADDR, EEPROM.read(address + 17));
+		write8(MAG_OFFSET_Z_LSB_ADDR, EEPROM.read(address + 18));
+
+		write8(ACCEL_RADIUS_MSB_ADDR, EEPROM.read(address + 19));
+		write8(ACCEL_RADIUS_LSB_ADDR, EEPROM.read(address + 20));
+		write8(MAG_RADIUS_MSB_ADDR, EEPROM.read(address + 21));
+		write8(MAG_RADIUS_LSB_ADDR, EEPROM.read(address + 22));
+
+		setMode(lastMode);
+		delay(20);
+		return true;
+	}
+
+	return false;
+}
 
 /**************************************************************************/
 /*!

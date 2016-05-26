@@ -48,6 +48,8 @@ uint32_t readingPi;
 uint32_t processingPi;
 uint32_t transmitting;
 
+int bnoCalibration;
+
 float startEngine;
 
 //1 && 4 going back x goes higher 
@@ -111,6 +113,8 @@ void setup(void)
   
   Wire1.begin(I2C_MASTER, 0, I2C_PINS_29_30, I2C_PULLUP_INT, I2C_RATE_100);
 
+  int tries = 0;
+
   do{
     BNO_Error = 0;
   
@@ -127,7 +131,9 @@ void setup(void)
       digitalWrite(15,HIGH);
       delay(750); //Data sheet says 650 ms
     }
-  }while(BNO_Error == 1);
+
+    tries++;
+  }while(BNO_Error == 1 && tries <= 3);
     
   //Let the BNO get settled
   delay(2000);
@@ -193,6 +199,11 @@ void setup(void)
   updateOuputs();
 
   delay(2000);
+
+  if(bno.readSensorOffsetsFromEEPROM(0))
+    bnoCalibration = 1;
+  else
+    bnoCalibration = 0;
 
   engineSV[0] = .8;
   engineSV[1] = .8;
@@ -282,6 +293,16 @@ void recvParam(rI2CRX_decParam decParam)
     controlP = *((float*)decParam.val);
   if(decParam.index == 18 && decParam.type == rI2C_FLOAT)
     controlI = *((float*)decParam.val);
+
+  if(decParam.index == 19 && decParam.type == rI2C_FLOAT){
+    if(bno.writeSensorOffsetsToEEPROM(0))
+      bnoCalibration = 16;
+    else
+      bnoCalibration = 0;
+    uint8_t system1, gyro, accel, mag;
+    bno.getCalibration(&system1, &gyro, &accel, &mag);
+    bnoCalibration += system1/3 + gyro/3*2 + accel/3 * 4 + mag/3 * 8;
+  }
     
   if(decParam.index == 100 && decParam.type == rI2C_FLOAT)
     blinkRate = *((float*)decParam.val);
@@ -308,8 +329,8 @@ void ControlLoop(void)
   bno.getEvent(&event);
   
   rI2CTX_addParameter(30,event.orientation.x);  //This one
- // rI2CTX_addParameter(31,event.orientation.y);
-  //rI2CTX_addParameter(32,event.orientation.z);
+  rI2CTX_addParameter(31,event.orientation.y);
+  rI2CTX_addParameter(32,event.orientation.z);
 
   float currentAngle = event.orientation.x;
   if(currentAngle > 180)
@@ -356,6 +377,8 @@ void ControlLoop(void)
   rI2CTX_addParameter(23,(int32_t)engine[1]);
   rI2CTX_addParameter(24,(int32_t)engine[2]);
   rI2CTX_addParameter(25,(int32_t)engine[3]);*/
+
+  rI2CTX_addParameter(49,(int32_t)bnoCalibration);
   
   rI2CTX_addParameter(50,(int32_t)i);
   
