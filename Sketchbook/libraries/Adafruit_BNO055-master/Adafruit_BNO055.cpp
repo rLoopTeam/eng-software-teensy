@@ -60,11 +60,15 @@ bool Adafruit_BNO055::begin(i2c_t3 *wire, adafruit_bno055_opmode_t mode)
 	_wire = wire;
 	_wire->setDefaultTimeout(3000);
 
+	//Make sure we're on page 2
+	write8(BNO055_PAGE_ID_ADDR, 0);
+
   /* Make sure we have the right device */
   uint8_t id = read8(BNO055_CHIP_ID_ADDR);
   if(id != BNO055_ID)
   {
     delay(1000); // hold on for boot
+	write8(BNO055_PAGE_ID_ADDR, 0);
     id = read8(BNO055_CHIP_ID_ADDR);
     if(id != BNO055_ID) {
       return false;  // still not? ok bail
@@ -74,19 +78,9 @@ bool Adafruit_BNO055::begin(i2c_t3 *wire, adafruit_bno055_opmode_t mode)
   /* Switch to config mode (just in case since this is the default) */
   setMode(OPERATION_MODE_CONFIG);
 
-  /* Reset */
-  write8(BNO055_SYS_TRIGGER_ADDR, 0x20);
-  while (read8(BNO055_CHIP_ID_ADDR) != BNO055_ID)
-  {
-    delay(10);
-  }
-  delay(50);
-
   /* Set to normal power mode */
   write8(BNO055_PWR_MODE_ADDR, POWER_MODE_NORMAL);
   delay(10);
-
-  write8(BNO055_PAGE_ID_ADDR, 0);
 
   /* Set the output units */
   /*

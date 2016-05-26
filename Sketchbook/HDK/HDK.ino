@@ -108,26 +108,21 @@ void setup(void)
   Wire1.begin(I2C_MASTER, 0, I2C_PINS_29_30, I2C_PULLUP_INT, I2C_RATE_100);
   
   do{
-
+    BNO_Error = 0;
   
-  Wire1.resetBus();
-
-  BNO_Error = 0;
-
-  // Initialise the sensor
-  if(!bno.begin(&Wire1))
-  {
- // There was a problem detecting the BNO055 ... check your connections 
-     BNO_Error = 1;
-  }
-
-  if(BNO_Error == 1){
-
-    digitalWrite(15,LOW);
-    delay(1000);
-    digitalWrite(15,HIGH);
-    delay(1000);
-  }
+    // Initialise the sensor
+    if(!bno.begin(&Wire1))
+    {
+   // There was a problem detecting the BNO055 ... check your connections 
+       BNO_Error = 1;
+    }
+  
+    if(BNO_Error == 1){
+      digitalWrite(15,LOW);
+      delay(50); //Data sheet says at least 20ns
+      digitalWrite(15,HIGH);
+      delay(750); //Data sheet says 650 ms
+    }
   }while(BNO_Error == 1);
     
   //Let the BNO get settled
