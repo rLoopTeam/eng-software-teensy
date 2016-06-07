@@ -39,8 +39,6 @@ void setup(void)
   blinkRate = 50;
   blinkCount = 0;
 
-;
-
   //The I2C Library needs to be able to fire some interrupts
   //during our control loop to manage the start & stop
   //transactions in DMA mode.
