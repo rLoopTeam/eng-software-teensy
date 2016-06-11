@@ -808,6 +808,24 @@ uint8_t i2c_t3::endTransmission(struct i2cStruct* i2c, uint8_t bus, i2c_stop sen
     return getError();
 }
 
+// ------------------------------------------------------------------------------------------------------
+// Master Transmit - non-blocking routine with timeout, transmits Tx buffer to slave. i2c_stop parameter can be used
+//                   to indicate if command should end with a STOP(I2C_STOP) or not (I2C_NOSTOP).
+// return: 0=success
+// parameters:
+//      i2c_stop = I2C_NOSTOP, I2C_STOP
+//      timeout = timeout in microseconds
+//
+uint8_t i2c_t3::endTransmissionNB(struct i2cStruct* i2c, uint8_t bus, i2c_stop sendStop, uint32_t timeout)
+{
+	sendTransmission_(i2c, bus, sendStop, timeout);
+
+	//dont wait for completion or timeout
+	//finish_(i2c, bus, timeout);
+
+	return 0;
+}
+
 
 // ------------------------------------------------------------------------------------------------------
 // Send Master Transmit - non-blocking routine, starts transmit of Tx buffer to slave. i2c_stop parameter can be

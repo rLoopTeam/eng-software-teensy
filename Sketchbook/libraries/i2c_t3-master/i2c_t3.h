@@ -575,6 +575,34 @@ public:
     inline uint8_t endTransmission(i2c_stop sendStop) { return endTransmission(i2c, bus, sendStop, 0); }
     inline uint8_t endTransmission(uint8_t sendStop) { return endTransmission(i2c, bus, (i2c_stop)sendStop, 0); } // Wire compatibility
 
+	// ------------------------------------------------------------------------------------------------------
+	// Master Transmit Non Blocking Version (base routine) - cannot be static due to call to getError() and in turn getWriteError()
+	//
+	uint8_t endTransmissionNB(struct i2cStruct* i2c, uint8_t bus, i2c_stop sendStop, uint32_t timeout);
+	//
+	// Master Transmit - blocking routine with timeout, transmits Tx buffer to slave. i2c_stop parameter can be used
+	//                   to indicate if command should end with a STOP(I2C_STOP) or not (I2C_NOSTOP).
+	// return: 0=success, 1=data too long, 2=recv addr NACK, 3=recv data NACK, 4=other error
+	// parameters:
+	//      i2c_stop = I2C_NOSTOP, I2C_STOP
+	//      timeout = timeout in microseconds
+	//
+	inline uint8_t endTransmissionNB(i2c_stop sendStop, uint32_t timeout) { return endTransmissionNB(i2c, bus, sendStop, timeout); }
+	//
+	// Master Transmit - blocking routine, transmits Tx buffer to slave
+	// return: 0=success, 1=data too long, 2=recv addr NACK, 3=recv data NACK, 4=other error
+	//
+	inline uint8_t endTransmissionNB(void) { return endTransmissionNB(i2c, bus, I2C_STOP, 0); }
+	//
+	// Master Transmit - blocking routine, transmits Tx buffer to slave. i2c_stop parameter can be used to indicate
+	//                   if command should end with a STOP (I2C_STOP) or not (I2C_NOSTOP).
+	// return: 0=success, 1=data too long, 2=recv addr NACK, 3=recv data NACK, 4=other error
+	// parameters:
+	//      i2c_stop = I2C_NOSTOP, I2C_STOP
+	//
+	inline uint8_t endTransmissionNB(i2c_stop sendStop) { return endTransmissionNB(i2c, bus, sendStop, 0); }
+	inline uint8_t endTransmissionNB(uint8_t sendStop) { return endTransmissionNB(i2c, bus, (i2c_stop)sendStop, 0); } // Wire compatibility
+
     // ------------------------------------------------------------------------------------------------------
     // Send Master Transmit (base routine)
     //

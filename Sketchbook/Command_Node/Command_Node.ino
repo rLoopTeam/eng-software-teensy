@@ -1,3 +1,4 @@
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <rI2CTX.h>
@@ -13,6 +14,22 @@ uint32_t lastMicros;
 float blinkRate;
 int blinkCount;
 
+//Hover Engine Parameters
+float engine1Temp, engine2Temp, engine3Temp, engine4Temp, engine5Temp, engine6Temp, engine7Temp, engine8Temp;
+float engine1RPM, engine2RPM, engine3RPM, engine4RPM, engine5RPM, engine6RPM, engine7RPM, engine8RPM;
+float engine1Watts, engine2Watts, engine3Watts, engine4Watts, engine5Watts, engine6Watts, engine7Watts, engine8Watts;
+float engine1DSPTemp, engine2DSPTemp, engine3DSPTemp, engine4DSPTemp, engine5DSPTemp, engine6DSPTemp, engine7DSPTemp, engine8DSPTemp;
+float engine1WaxTemp, engine2WaxTemp, engine3WaxTemp, engine4WaxTemp, engine5WaxTemp, engine6WaxTemp, engine7WaxTemp, engine8WaxTemp;
+float engine1Volts, engine2Volts, engine3Volts, engine4Volts, engine5Volts, engine6Volts, engine7Volts, engine8Volts;
+
+float gimbal2Temp, gimbal3Temp, gimbal6Temp, gimbal7Temp;
+float lEddyBrakeStepperTemp, rEddyBrakeStepperTemp;
+float internalPressure1, internalPressure2;
+uint8_t parkingBrake;
+uint8_t chargerState;
+
+uint8_t runMode;
+//0 - Standby, manual control
 
 uint32_t duration;
 uint32_t sensors;
@@ -36,7 +53,7 @@ void setup(void)
   rI2CRX_frameRXEndCB = &endFrame;
   
   pinMode(13,OUTPUT);
-  blinkRate = 50;
+  blinkRate = 15;
   blinkCount = 0;
 
   //The I2C Library needs to be able to fire some interrupts
@@ -44,8 +61,8 @@ void setup(void)
   //transactions in DMA mode.
   controlTimer.priority(200);
 
-    //Setup the 100Hz control loop timer
-  controlTimer.begin(ControlLoop, 10000);
+    //Setup the 30Hz control loop timer
+  controlTimer.begin(ControlLoop, 33333);
 
 }
 
@@ -79,38 +96,88 @@ void ControlLoop(void)
   uint32_t beginM = micros();
 
   rI2CTX_beginFrame();
+
+  rI2CTX_addParameter(0,(int32_t)i);
+  rI2CTX_addParameter(1,(uint32_t)beginM);
+  rI2CTX_addParameter(2,(uint8_t)runMode);
+
+  rI2CTX_addParameter(3,(float)engine1Temp);
+  rI2CTX_addParameter(4,(float)engine2Temp);
+  rI2CTX_addParameter(5,(float)engine3Temp);
+  rI2CTX_addParameter(6,(float)engine4Temp);
+  rI2CTX_addParameter(7,(float)engine5Temp);
+  rI2CTX_addParameter(8,(float)engine6Temp);
+  rI2CTX_addParameter(9,(float)engine7Temp);
+  rI2CTX_addParameter(10,(float)engine8Temp);
   
-  /*
-
-  rI2CTX_addParameter(10,(float)servoSV[0]);
-  rI2CTX_addParameter(11,(float)servoSV[1]);
-  rI2CTX_addParameter(12,(float)servoSV[2]);
-  rI2CTX_addParameter(13,(float)servoSV[3]);
-  rI2CTX_addParameter(14,(int32_t)servo[0]);
-  rI2CTX_addParameter(15,(int32_t)servo[1]);
-  rI2CTX_addParameter(16,(int32_t)servo[2]);
-  rI2CTX_addParameter(17,(int32_t)servo[3]);
-
-  rI2CTX_addParameter(18,(float)engineSV[0]);
-  rI2CTX_addParameter(19,(float)engineSV[1]);
-  rI2CTX_addParameter(20,(float)engineSV[2]);
-  rI2CTX_addParameter(21,(float)engineSV[3]);
-  rI2CTX_addParameter(22,(int32_t)engine[0]);
-  rI2CTX_addParameter(23,(int32_t)engine[1]);
-  rI2CTX_addParameter(24,(int32_t)engine[2]);
-  rI2CTX_addParameter(25,(int32_t)engine[3]);*/
-
+  rI2CTX_addParameter(11,(float)engine1DSPTemp);
+  rI2CTX_addParameter(12,(float)engine2DSPTemp);
+  rI2CTX_addParameter(13,(float)engine3DSPTemp);
+  rI2CTX_addParameter(14,(float)engine4DSPTemp);
+  rI2CTX_addParameter(15,(float)engine5DSPTemp);
+  rI2CTX_addParameter(16,(float)engine6DSPTemp);
+  rI2CTX_addParameter(17,(float)engine7DSPTemp);
+  rI2CTX_addParameter(18,(float)engine8DSPTemp);
   
-  rI2CTX_addParameter(50,(int32_t)i);
+  rI2CTX_addParameter(19,(float)engine1WaxTemp);
+  rI2CTX_addParameter(20,(float)engine2WaxTemp);
+  rI2CTX_addParameter(21,(float)engine3WaxTemp);
+  rI2CTX_addParameter(22,(float)engine4WaxTemp);
+  rI2CTX_addParameter(23,(float)engine5WaxTemp);
+  rI2CTX_addParameter(24,(float)engine6WaxTemp);
+  rI2CTX_addParameter(25,(float)engine7WaxTemp);
+  rI2CTX_addParameter(26,(float)engine8WaxTemp);
+  
+  rI2CTX_addParameter(27,(float)engine1Watts);
+  rI2CTX_addParameter(28,(float)engine2Watts);
+  rI2CTX_addParameter(29,(float)engine3Watts);
+  rI2CTX_addParameter(30,(float)engine4Watts);
+  rI2CTX_addParameter(31,(float)engine5Watts);
+  rI2CTX_addParameter(32,(float)engine6Watts);
+  rI2CTX_addParameter(33,(float)engine7Watts);
+  rI2CTX_addParameter(34,(float)engine8Watts);
+  
+  rI2CTX_addParameter(35,(float)engine1Volts);
+  rI2CTX_addParameter(36,(float)engine2Volts);
+  rI2CTX_addParameter(37,(float)engine3Volts);
+  rI2CTX_addParameter(38,(float)engine4Volts);
+  rI2CTX_addParameter(39,(float)engine5Volts);
+  rI2CTX_addParameter(40,(float)engine6Volts);
+  rI2CTX_addParameter(41,(float)engine7Volts);
+  rI2CTX_addParameter(42,(float)engine8Volts);
+
+  rI2CTX_addParameter(43,(float)engine1RPM);
+  rI2CTX_addParameter(44,(float)engine2RPM);
+  rI2CTX_addParameter(45,(float)engine3RPM);
+  rI2CTX_addParameter(46,(float)engine4RPM);
+  rI2CTX_addParameter(47,(float)engine5RPM);
+  rI2CTX_addParameter(48,(float)engine6RPM);
+  rI2CTX_addParameter(49,(float)engine7RPM);
+  rI2CTX_addParameter(50,(float)engine8RPM);
+  
+  rI2CTX_addParameter(51,(float)gimbal2Temp);  
+  rI2CTX_addParameter(52,(float)gimbal3Temp);  
+  rI2CTX_addParameter(53,(float)gimbal6Temp);  
+  rI2CTX_addParameter(54,(float)gimbal7Temp);  
+
+  rI2CTX_addParameter(55,(float)lEddyBrakeStepperTemp);  
+  rI2CTX_addParameter(56,(float)rEddyBrakeStepperTemp);  
+
+  rI2CTX_addParameter(57,(float)internalPressure1);  
+  rI2CTX_addParameter(58,(float)internalPressure2);  
+
+  rI2CTX_addParameter(59,(uint8_t)parkingBrake);  
+  rI2CTX_addParameter(60,(uint8_t)chargerState);  
+  
+  rI2CTX_addParameter(100,(uint8_t)duration);  
   
   rI2CTX_endFrame();
 
   sensors = micros() - beginM;
 
-
   readingPi = micros();
 
-  Wire.requestFrom(51, 100, 500);
+  Wire.requestFrom(51, 200, 500);
   uint8_t recvByte;
 
   readingPi = micros() - readingPi;
@@ -129,7 +196,7 @@ void ControlLoop(void)
   Wire.write(rI2CTX_buffer, rI2CTX_bufferPos);
 
     transmitting = micros();
-  Wire.endTransmission(I2C_STOP, 3000);
+  Wire.endTransmissionNB(I2C_STOP, 3000);
 
   transmitting = micros() - transmitting;
   
