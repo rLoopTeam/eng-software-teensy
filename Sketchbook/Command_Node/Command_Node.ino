@@ -98,7 +98,7 @@ void ControlLoop(void)
   rI2CTX_beginFrame();
 
   rI2CTX_addParameter(0,(int32_t)i);
-  rI2CTX_addParameter(1,(uint32_t)beginM);
+  rI2CTX_addParameter(1,(double)((double)beginM/1000000));
   rI2CTX_addParameter(2,(uint8_t)runMode);
 
   rI2CTX_addParameter(3,(float)engine1Temp);
