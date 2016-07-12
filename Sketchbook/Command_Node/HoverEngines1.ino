@@ -34,3 +34,69 @@
  * 511 - Write parameters to flash
  */
 
+#include <UartEvent.h>
+
+Uart1Event uart1;
+// Compute the MODBUS RTU CRC
+//http://www.ccontrolsys.com/w/How_to_Compute_the_Modbus_RTU_Message_CRC
+uint16_t ModRTU_CRC(uint8_t *buf, int len)
+{
+  uint16_t crc = 0xFFFF;
+
+  for (int pos = 0; pos < len; pos++) {
+    crc ^= (uint8_t)buf[pos];          // XOR byte into least sig. byte of crc
+
+    for (int i = 8; i != 0; i--) {    // Loop over each bit
+      if ((crc & 0x0001) != 0) {      // If the LSB is set
+        crc >>= 1;                    // Shift right and XOR 0xA001
+        crc ^= 0xA001;
+      }
+      else                            // Else LSB is not set
+        crc >>= 1;                    // Just shift right
+    }
+  }
+  // Note, this number has low and high bytes swapped, so use it accordingly (or swap bytes)
+  return crc;
+}
+
+//MODBUS Function code 3
+//Based off sniffing the ASI BACDoor software
+void requestParam(uint16_t param)
+{
+  uint8_t commandString[] = { 0x01, 0x03, 0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00 };
+  commandString[2] = param & 0xFF;
+  commandString[3] = param >>8;
+
+  uint16_t CRC = ModRTU_CRC(commandString, 6);
+  commandString[6] = CRC & 0xFF;
+  commandString[7] = CRC >> 8;
+
+  //TODO: Send the uart data
+}
+  
+void setupHE(uint8_t transmitPin){
+    uart1.begin(115200);
+    uart1.transmitterEnable(transmitPin);
+    uart1.clear();
+}
+
+//MODBUS Function code 3
+//Based off sniffing the ASI BACDoor software
+void requestParam(uint16_t param)
+{
+  uint8_t commandString[] = { 0x01, 0x03, 0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00 };
+  commandString[2] = param >> 8;
+  commandString[3] = param & 0xFF;
+
+  uint16_t CRC = ModRTU_CRC(commandString, 6);
+  commandString[6] = CRC & 0xFF;
+  commandString[7] = CRC >> 8;
+  int test = 6;
+}
+
+
+void retParam()
+{
+
+}
+

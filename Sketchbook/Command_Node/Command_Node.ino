@@ -64,6 +64,7 @@ void setup(void)
     //Setup the 30Hz control loop timer
   controlTimer.begin(ControlLoop, 33333);
 
+  setupHE(8); //CONFIRM THIS
 }
 
 void loop(void)
