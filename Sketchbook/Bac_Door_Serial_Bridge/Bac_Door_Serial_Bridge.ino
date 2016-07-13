@@ -6,12 +6,13 @@
 
 #define DEFAULT_MODBUS_ADDRESS 1
 
-#define INITIAL_BAUD 115200
+//#define INITIAL_BAUD 115200
+#define INITIAL_BAUD 57600
 
 #define DAC_BITS 12
 
 #define DIR_CTRL_PIN 2
-#define MODE_CTRL_PIN 4
+#define MODE_CTRL_PIN 5
 #define DAC_PIN A14
 
 #define ESCTOCOMPUTER_BUFF_MAX 64 // must be smaller than USB endpoint size
@@ -25,6 +26,7 @@ uint16_t computer_cmd_buff_idx = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(INITIAL_BAUD);
+  pinMode(DIR_CTRL_PIN, OUTPUT);
   pinMode(MODE_CTRL_PIN, INPUT_PULLUP);
   analogWriteResolution(DAC_BITS);
 }
