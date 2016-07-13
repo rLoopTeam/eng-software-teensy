@@ -38,17 +38,27 @@ void loop() {
   static int64_t last_char_time = -1;
   char must_send = 0;
   static char prev_mode = HIGH;
-  char cur_mode = digitalRead(MODE_CTRL_PIN);
+  char cur_mode;
+  static char lock_in_bridge_mode = 0;
+
+  if (lock_in_bridge_mode != 0) {
+    cur_mode = HIGH;
+  }
+  else {
+    cur_mode = digitalRead(MODE_CTRL_PIN);
+  }
 
   if (cur_mode != prev_mode) { // detect mode transitions
     if (cur_mode == LOW) {
       // this is console command mode
       computer_cmd_buff_idx = 0;
+      analogWrite(A14, 0);
       // TODO other tasks required
     }
     else {
       // this is bridge mode
       esc_to_computer_buff_idx = 0;
+      analogWrite(A14, 0);
       // TODO other tasks required
     }
     prev_mode = cur_mode;
@@ -90,10 +100,24 @@ void loop() {
     }
     else {
       if (c != '\r' && c != '\n') {
-        computer_cmd_buff[computer_cmd_buff_idx] = c;
-        computer_cmd_buff[computer_cmd_buff_idx + 1] = 0;
-        if (computer_cmd_buff_idx < COMPUTERCMD_BUFF_MAX - 2) {
-          computer_cmd_buff_idx++;
+        char is_cancel = 0;
+        if ((c == ' ' && computer_cmd_buff_idx == 0) || c < ' ')
+        {
+          is_cancel = 1;
+        }
+        if (is_cancel == 0)
+        {
+          computer_cmd_buff[computer_cmd_buff_idx] = c;
+          computer_cmd_buff[computer_cmd_buff_idx + 1] = 0;
+          if (computer_cmd_buff_idx < COMPUTERCMD_BUFF_MAX - 2) {
+            computer_cmd_buff_idx++;
+          }
+        }
+        else
+        {
+          Serial.println("\r\ncommand cancelled\r\n");
+          computer_cmd_buff_idx = 0;
+          analogWrite(A14, 0);
         }
       }
       else {
@@ -116,7 +140,12 @@ void loop() {
           }
         }
         else if (strcmp((const char*)computer_cmd_buff, "RUN_DESIRED_CONFIG") == 0) {
+          Serial.println("executing RUN_DESIRED_CONFIG\r\n");
           // TODO
+        }
+        else if (strcmp((const char*)computer_cmd_buff, "LOCK_IN_BRIDGE_MODE") == 0) {
+          Serial.println("executing LOCK_IN_BRIDGE_MODE\r\n");
+          lock_in_bridge_mode = 1;
         }
         else if (strlen((const char*)computer_cmd_buff) > 0){
           Serial.println("invalid command");
