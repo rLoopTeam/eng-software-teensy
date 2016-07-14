@@ -26,6 +26,8 @@ uint16_t computer_cmd_buff_idx = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(INITIAL_BAUD);
+  pinMode(0, INPUT);
+  pinMode(1, OUTPUT);
   pinMode(DIR_CTRL_PIN, OUTPUT);
   pinMode(MODE_CTRL_PIN, INPUT_PULLUP);
   pinMode(DAC_PIN, OUTPUT);
