@@ -28,6 +28,7 @@ void setup() {
   Serial.begin(INITIAL_BAUD);
   pinMode(DIR_CTRL_PIN, OUTPUT);
   pinMode(MODE_CTRL_PIN, INPUT_PULLUP);
+  pinMode(DAC_PIN, OUTPUT);
   analogWriteResolution(DAC_BITS);
 }
 
@@ -75,6 +76,7 @@ void loop() {
   while (Serial1.available())
   {
     uint8_t c = Serial1.read();
+    Serial2.write(c);
     esc_to_computer_buff[esc_to_computer_buff_idx] = c;
     esc_to_computer_buff_idx++;
     last_char_time = millis();
@@ -124,10 +126,11 @@ void loop() {
         // received a return
         computer_cmd_buff[computer_cmd_buff_idx] = 0;
         if (strncmp((const char*)computer_cmd_buff, "DAC", 3) == 0) {
-          char* end_ptr;
-          int dac_val = strtol((const char*)computer_cmd_buff, &end_ptr, 10);
-          if ((uint32_t)end_ptr != (uint32_t)&computer_cmd_buff[computer_cmd_buff_idx]) {
-            Serial.println("failed to parse int");
+          char* read_end_ptr;
+          char* write_end_ptr = (char*)&computer_cmd_buff[computer_cmd_buff_idx];
+          int dac_val = strtol((const char*)&computer_cmd_buff[3], &read_end_ptr, 10);
+          if ((uint32_t)read_end_ptr != (uint32_t)write_end_ptr) {
+            Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
             analogWrite(A14, 0);
           }
           else if (dac_val < 0 || dac_val >= (1 << DAC_BITS)) {
@@ -151,6 +154,7 @@ void loop() {
           Serial.println("invalid command");
           analogWrite(A14, 0);
         }
+        computer_cmd_buff_idx = 0;
       }
       Serial.send_now();
     }
@@ -162,6 +166,12 @@ void ModRTU_Send(uint8_t addr, uint8_t func, uint8_t* buf, uint8_t n)
   static uint8_t modbus_buff[MODBUS_BUFF_MAX];
   uint16_t* crc_ptr = (uint16_t*)&modbus_buff[2 + n];
   uint16_t crc;
+
+  if (n + 4 >= MODBUS_BUFF_MAX) {
+    // TODO error message
+    return;
+  }
+
   modbus_buff[0] = addr;
   modbus_buff[1] = func;
   memcpy(&modbus_buff[2], buf, n);
