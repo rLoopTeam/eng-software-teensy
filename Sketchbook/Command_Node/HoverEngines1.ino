@@ -12,6 +12,12 @@
  * 213,214 - Throttle range stuff
  * 215 - Throttle sensor source
  * 258 - Faults
+ * 259 - Controller Temp
+ * 262 - Motor Current Amps Scale:32
+ * 263 - Motor RPM
+ * 265 - Masured battery voltage Scale: 32
+ * 266 - Measured Battery Current Scale 32
+ * 268 - Battery Power Watts
  * 269 - Last Fault
  * 270 - Filtered Throttle Voltage
  * 277 - Warnings
@@ -35,6 +41,13 @@
  */
 
 #include <UartEvent.h>
+
+enum HERequestState { HERequest_IDLE, HERequest_WAITING, HERequest_DONE};
+
+unsigned int parameterRequested;
+unsigned int lastParameter;
+unsigned int lastParameterValue;
+uint8_t HEAddr;
 
 Uart1Event uart1;
 // Compute the MODBUS RTU CRC
@@ -63,23 +76,65 @@ uint16_t ModRTU_CRC(uint8_t *buf, int len)
 //Based off sniffing the ASI BACDoor software
 void requestParam(uint16_t param)
 {
-  uint8_t commandString[] = { 0x01, 0x03, 0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00 };
-  commandString[2] = param & 0xFF;
-  commandString[3] = param >>8;
+  uint8_t commandString[] = { HEAddr, 0x03, 0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00 };
+  commandString[3] = param & 0xFF;
+  commandString[2] = param >>8;
 
   uint16_t CRC = ModRTU_CRC(commandString, 6);
   commandString[6] = CRC & 0xFF;
   commandString[7] = CRC >> 8;
 
-  //TODO: Send the uart data
-}
-  
-void setupHE(uint8_t transmitPin){
-    uart1.begin(115200);
-    uart1.transmitterEnable(transmitPin);
-    uart1.clear();
+  parameterRequested = param;
+
+  uart1.clear();
+  uart1.flush();
+  uart1.write(commandString, sizeof(commandString));
 }
 
+//Called to process a hover engine response
+bool checkResponse(uint16_t timeout) //timeout in microseconds
+{
+  elapsedMicros timeoutCounter;
+  uint8_t rxBuf[7];
+  while(uart1.available() < 7 && timeoutCounter < timeout)
+  {
+  }
+  
+  if(uart1.available() == 7)
+  {
+    for(int i = 0;i<7;i++)
+      rxBuf[i] = uart1.read();
+      
+    if(ModRTU_CRC(rxBuf,5) == (rxBuf[6]<<8|rxBuf[5])){
+      //Checksum Valid
+      if(rxBuf[0] == HEAddr && rxBuf[1] == 3){
+        lastParameter = parameterRequested;
+        lastParameterValue = (rxBuf[3]<<8|rxBuf[4]);
+      }
+    }
+  }
+  
+  uart1.clear();
+  uart1.flush();
+  return false;
+}
+
+uint16_t HE1lastParameter()
+{
+  return lastParameter;
+}
+
+uint16_t HE1lastParameterValue()
+{
+  return lastParameterValue;
+}
+  
+void setupHE(uint8_t transmitPin, uint8_t heAddr){
+    uart1.begin(115200);
+    uart1.transmitterEnable(transmitPin);
+    uart1.clear();  //RX (flush is clear tx buffer)
+    HEAddr = heAddr;
+}
 
 void retParam()
 {

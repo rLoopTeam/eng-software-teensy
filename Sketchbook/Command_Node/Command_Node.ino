@@ -15,12 +15,17 @@ float blinkRate;
 int blinkCount;
 
 //Hover Engine Parameters
-float engine1Temp, engine2Temp, engine3Temp, engine4Temp, engine5Temp, engine6Temp, engine7Temp, engine8Temp;
-float engine1RPM, engine2RPM, engine3RPM, engine4RPM, engine5RPM, engine6RPM, engine7RPM, engine8RPM;
-float engine1Watts, engine2Watts, engine3Watts, engine4Watts, engine5Watts, engine6Watts, engine7Watts, engine8Watts;
-float engine1DSPTemp, engine2DSPTemp, engine3DSPTemp, engine4DSPTemp, engine5DSPTemp, engine6DSPTemp, engine7DSPTemp, engine8DSPTemp;
+float engine1Temp, engine2Temp, engine3Temp, engine4Temp, engine5Temp, engine6Temp, engine7Temp, engine8Temp; //ADC or HE?
+float engine1RPM, engine2RPM, engine3RPM, engine4RPM, engine5RPM, engine6RPM, engine7RPM, engine8RPM; //263 in RPM
+float engine1Watts, engine2Watts, engine3Watts, engine4Watts, engine5Watts, engine6Watts, engine7Watts, engine8Watts; //268 in Watts
+float engine1Current, engine2Current, engine3Current, engine4Current, engine5Current, engine6Current, engine8Current, engine9Current; //266 in Amps / 32
+float engine1DSPTemp, engine2DSPTemp, engine3DSPTemp, engine4DSPTemp, engine5DSPTemp, engine6DSPTemp, engine7DSPTemp, engine8DSPTemp; //259 Temp in C
 float engine1WaxTemp, engine2WaxTemp, engine3WaxTemp, engine4WaxTemp, engine5WaxTemp, engine6WaxTemp, engine7WaxTemp, engine8WaxTemp;
-float engine1Volts, engine2Volts, engine3Volts, engine4Volts, engine5Volts, engine6Volts, engine7Volts, engine8Volts;
+float engine1Volts, engine2Volts, engine3Volts, engine4Volts, engine5Volts, engine6Volts, engine7Volts, engine8Volts; //265 in volts / 32
+
+//270 throttle voltage / 4096
+//213 full throttle / 4096
+//214 0 throttle voltage / 4096
 
 float gimbal2Temp, gimbal3Temp, gimbal6Temp, gimbal7Temp;
 float lEddyBrakeStepperTemp, rEddyBrakeStepperTemp;
@@ -64,13 +69,59 @@ void setup(void)
     //Setup the 30Hz control loop timer
   controlTimer.begin(ControlLoop, 33333);
 
-  setupHE(8); //CONFIRM THIS
+  //Start HE driver, TX control on pin 8, HE address 1
+  setupHE(8, 1); 
+  
+  
+  delay(2000);
+  requestParam(263);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()));
+  Serial.println(" RPM");
+  
+  requestParam(268);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()));
+  Serial.println(" Watts");
+
+  requestParam(266);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()/32.0));
+  Serial.println(" Amps");
+
+  requestParam(265);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()/32.0));
+  Serial.println(" Volts");
+
+  requestParam(259);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()));
+  Serial.println(" C");
+
+  requestParam(270);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()/4096.0));
+  Serial.println(" Current Throttle");
+
+  requestParam(213);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()/4096.0));
+  Serial.println(" Max Throttle V");
+  
+  
+  requestParam(214);
+  checkResponse(10000);
+  Serial.print(String(HE1lastParameterValue()/4096.0));
+  Serial.println(" Min Throttle V");
+
+
 }
 
 void loop(void)
 {
 
-  }
+}
 
 void gotAFrame()
 {}
