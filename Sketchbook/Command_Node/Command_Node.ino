@@ -114,8 +114,6 @@ void setup(void)
   checkResponse(10000);
   Serial.print(String(HE1lastParameterValue()/4096.0));
   Serial.println(" Min Throttle V");
-
-
 }
 
 void loop(void)

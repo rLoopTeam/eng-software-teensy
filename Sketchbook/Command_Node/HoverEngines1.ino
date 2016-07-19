@@ -130,7 +130,7 @@ uint16_t HE1lastParameterValue()
 }
   
 void setupHE(uint8_t transmitPin, uint8_t heAddr){
-    uart1.begin(115200);
+    uart1.begin(115200, SERIAL_8E1);
     uart1.transmitterEnable(transmitPin);
     uart1.clear();  //RX (flush is clear tx buffer)
     HEAddr = heAddr;
