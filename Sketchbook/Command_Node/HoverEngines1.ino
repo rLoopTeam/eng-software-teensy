@@ -80,20 +80,6 @@ void setupHE(uint8_t transmitPin){
     uart1.clear();
 }
 
-//MODBUS Function code 3
-//Based off sniffing the ASI BACDoor software
-void requestParam(uint16_t param)
-{
-  uint8_t commandString[] = { 0x01, 0x03, 0xFF, 0xFF, 0x00, 0x01, 0x00, 0x00 };
-  commandString[2] = param >> 8;
-  commandString[3] = param & 0xFF;
-
-  uint16_t CRC = ModRTU_CRC(commandString, 6);
-  commandString[6] = CRC & 0xFF;
-  commandString[7] = CRC >> 8;
-  int test = 6;
-}
-
 
 void retParam()
 {
