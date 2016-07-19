@@ -101,8 +101,8 @@ public:
         rxEventHandler = defaultCallback;
     }
     virtual void begin( uint32_t baud, uint32_t format ) {
-        serial_dma_format( format );
         serial_dma_begin( BAUD2DIV( baud ) );
+		serial_dma_format(format);
     }
     virtual void   begin            ( uint32_t baud )   { serial_dma_begin( BAUD2DIV( baud ) ); }
     virtual void   end              ( void )            { serial_dma_end( ); }
