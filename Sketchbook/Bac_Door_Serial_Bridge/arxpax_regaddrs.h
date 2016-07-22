@@ -81,16 +81,16 @@ enum
 	ArxPaxRegAddr_Rs = 0x004B, // Motor phase to neutral stator resistance
 	ArxPaxRegAddr_Kv = 0x004C, // Motor back electromotive force constant that is equivalent to per unit system voltage/per unit rated speed
 	ArxPaxRegAddr_Motor_position_sensor_type = 0x004D, // 0 is hall based / 1 is hall start and sensorless run / 2 is sensorless / 3 is reserved
-	ArxPaxRegAddr__of_motor_pole_pairs = 0x004E, // The motor's number of electrical pole pairs
+	ArxPaxRegAddr_of_motor_pole_pairs = 0x004E, // The motor's number of electrical pole pairs
 	ArxPaxRegAddr_Hall_offset = 0x004F, // Hall sensor offset angle
-	ArxPaxRegAddr_Hall_sector_0_ = 0x0050, // Motor sector represented by Hall sequence 000   -1=illegal state
-	ArxPaxRegAddr_Hall_sector_1_ = 0x0051, // Motor sector represented by Hall sequence 001
-	ArxPaxRegAddr_Hall_sector_2_ = 0x0052, // Motor sector represented by Hall sequence 010
-	ArxPaxRegAddr_Hall_sector_3_ = 0x0053, // Motor sector represented by Hall sequence 011
-	ArxPaxRegAddr_Hall_sector_4_ = 0x0054, // Motor sector represented by Hall sequence 100
-	ArxPaxRegAddr_Hall_sector_5_ = 0x0055, // Motor sector represented by Hall sequence 101
-	ArxPaxRegAddr_Hall_sector_6_ = 0x0056, // Motor sector represented by Hall sequence 110
-	ArxPaxRegAddr_Hall_sector_7_ = 0x0057, // Motor sector represented by Hall sequence 111   -1=illegal state
+	ArxPaxRegAddr_Hall_sector_0 = 0x0050, // Motor sector represented by Hall sequence 000   -1=illegal state
+	ArxPaxRegAddr_Hall_sector_1 = 0x0051, // Motor sector represented by Hall sequence 001
+	ArxPaxRegAddr_Hall_sector_2 = 0x0052, // Motor sector represented by Hall sequence 010
+	ArxPaxRegAddr_Hall_sector_3 = 0x0053, // Motor sector represented by Hall sequence 011
+	ArxPaxRegAddr_Hall_sector_4 = 0x0054, // Motor sector represented by Hall sequence 100
+	ArxPaxRegAddr_Hall_sector_5 = 0x0055, // Motor sector represented by Hall sequence 101
+	ArxPaxRegAddr_Hall_sector_6 = 0x0056, // Motor sector represented by Hall sequence 110
+	ArxPaxRegAddr_Hall_sector_7 = 0x0057, // Motor sector represented by Hall sequence 111   -1=illegal state
 	ArxPaxRegAddr_Hall_interpolation_start_frequency = 0x0058, // Electrical frequency to start interpolating the halls
 	ArxPaxRegAddr_Hall_interpolation_stop_frequency = 0x0059, // Electrical frequency to stop interpolating the halls
 	ArxPaxRegAddr_Motor_over_temperature_trip_threshold = 0x005A, // Maximum motor temperature
@@ -314,8 +314,8 @@ enum
 	ArxPaxRegAddr_motor_phase_W_open_circuit_voltage_POST = 0x0134, // Measured phase W open circuit voltage nomalized to the battery voltage
 	ArxPaxRegAddr_phase_regen_current_power_limit = 0x0135, // motor phase current limit due to power or battery current
 	ArxPaxRegAddr_high_voltage_foldback_gain = 0x0136, // battery limit high voltage foldback gain
-	ArxPaxRegAddr_wheel_RPM_speed_sensor_based_ = 0x0137, // Calculated wheel speed based on wheel speed sensor
-	ArxPaxRegAddr_wheel_RPM_motor_based_ = 0x0138, // Calculated wheel speed based on motor pole pairs
+	ArxPaxRegAddr_wheel_RPM_speed_sensor_based = 0x0137, // Calculated wheel speed based on wheel speed sensor
+	ArxPaxRegAddr_wheel_RPM_motor_based = 0x0138, // Calculated wheel speed based on motor pole pairs
 	ArxPaxRegAddr_measured_wheel_RPM = 0x0139, // Measured wheel speed
 	ArxPaxRegAddr_local_power_limit_command = 0x013A, // switched between 1.0 and ratio of alt rated power
 	ArxPaxRegAddr_phase_A_current_sensor_offset = 0x013B, // % of full scale sensor reading (nominal value = 0.5)
@@ -443,14 +443,14 @@ enum
 	ArxPaxRegAddr_pwm_cmd_a_pwm = 0x01B5, // (Factory only)
 	ArxPaxRegAddr_pwm_cmd_b_pwm = 0x01B6, // (Factory only)
 	ArxPaxRegAddr_pwm_cmd_c_pwm = 0x01B7, // (Factory only)
-	ArxPaxRegAddr_autotune_hall_sector_0_ = 0x01B8, // Output of the auto tune hall sequence test for sector [0]
-	ArxPaxRegAddr_autotune_hall_sector_1_ = 0x01B9, // Output of the auto tune hall sequence test for sector [1]
-	ArxPaxRegAddr_autotune_hall_sector_2_ = 0x01BA, // Output of the auto tune hall sequence test for sector [2]
-	ArxPaxRegAddr_autotune_hall_sector_3_ = 0x01BB, // Output of the auto tune hall sequence test for sector [3]
-	ArxPaxRegAddr_autotune_hall_sector_4_ = 0x01BC, // Output of the auto tune hall sequence test for sector [4]
-	ArxPaxRegAddr_autotune_hall_sector_5_ = 0x01BD, // Output of the auto tune hall sequence test for sector [5]
-	ArxPaxRegAddr_autotune_hall_sector_6_ = 0x01BE, // Output of the auto tune hall sequence test for sector [6]
-	ArxPaxRegAddr_autotune_hall_sector_7_ = 0x01BF, // Output of the auto tune hall sequence test for sector [7]
+	ArxPaxRegAddr_autotune_hall_sector_0 = 0x01B8, // Output of the auto tune hall sequence test for sector [0]
+	ArxPaxRegAddr_autotune_hall_sector_1 = 0x01B9, // Output of the auto tune hall sequence test for sector [1]
+	ArxPaxRegAddr_autotune_hall_sector_2 = 0x01BA, // Output of the auto tune hall sequence test for sector [2]
+	ArxPaxRegAddr_autotune_hall_sector_3 = 0x01BB, // Output of the auto tune hall sequence test for sector [3]
+	ArxPaxRegAddr_autotune_hall_sector_4 = 0x01BC, // Output of the auto tune hall sequence test for sector [4]
+	ArxPaxRegAddr_autotune_hall_sector_5 = 0x01BD, // Output of the auto tune hall sequence test for sector [5]
+	ArxPaxRegAddr_autotune_hall_sector_6 = 0x01BE, // Output of the auto tune hall sequence test for sector [6]
+	ArxPaxRegAddr_autotune_hall_sector_7 = 0x01BF, // Output of the auto tune hall sequence test for sector [7]
 	ArxPaxRegAddr_parameter_CRC32_high_word = 0x01C0, // High word of the 32 bit CRC calculation of the parameters
 	ArxPaxRegAddr_parameter_CRC32_low_word = 0x01C1, // Low word of the 32 bit CRC calculation of the parameters
 	ArxPaxRegAddr_user_access_level = 0x01C2, // Current user parameter access level
@@ -481,8 +481,8 @@ enum
 	ArxPaxRegAddr_Maximum_braking_current = 0x01DB, // Maximum braking current limit scaled a % of rated rated motor current (from local or remote VCM)
 	ArxPaxRegAddr_State_command = 0x01DC, // State command where 1 = IDLE and 2 = RUN (used in networked configuration only)
 	ArxPaxRegAddr_Torque_command = 0x01DD, // Torque command scaled a % of rated motor current (used in networked configuration only)
-	ArxPaxRegAddr_Running_Light_PWM_Daylight_ = 0x01DE, // 0 to 100%
-	ArxPaxRegAddr_Brake_Light_PWM_Daylight_ = 0x01DF, // 0 to 100%
+	ArxPaxRegAddr_Running_Light_PWM_Daylight = 0x01DE, // 0 to 100%
+	ArxPaxRegAddr_Brake_Light_PWM_Daylight = 0x01DF, // 0 to 100%
 	ArxPaxRegAddr_Test_mode = 0x01E0, // 0 is closed loop current mode (standard operating mode) / 2 is open loop voltage mode / 3 is open loop current mode
 	ArxPaxRegAddr_Motor_discover_mode = 0x01E1, // 0 is off / 1 is motor stationary parameter discover / 2 is moving parameter discover
 	ArxPaxRegAddr_Open_loop_modulation = 0x01E2, // Per unit modulation current/voltage
@@ -533,7 +533,7 @@ enum
 	ArxPaxRegAddr_RPDO1_map3_index = 0x0705, // RPDO1 map3 index
 	ArxPaxRegAddr_RPDO1_map4_sub_index_and_size = 0x0706, // RPDO1 map4 sub index (high byte) and size in bits (low bit)
 	ArxPaxRegAddr_RPDO1_map4_index = 0x0707, // RPDO1 map4 index
-	ArxPaxRegAddr_RPDO1_size_words_ = 0x0708, // RPDO1 size in words
+	ArxPaxRegAddr_RPDO1_size_words = 0x0708, // RPDO1 size in words
 	ArxPaxRegAddr_RPDO1_transmission_type = 0x0709, // asynchronous only (0 to disable, N to enable)
 	ArxPaxRegAddr_RPDO1_timeout = 0x070A, // RPDO1 timeout in ms (0 to disable)
 	ArxPaxRegAddr_parameters2_spare1 = 0x070B, // (not used)
@@ -545,7 +545,7 @@ enum
 	ArxPaxRegAddr_RPDO2_map3_index = 0x0711, // RPDO2 map3 index
 	ArxPaxRegAddr_RPDO2_map4_sub_index_and_size = 0x0712, // RPDO2 map4 sub index (high byte) and size in bits (low bit)
 	ArxPaxRegAddr_RPDO2_map4_index = 0x0713, // RPDO2 map4 index
-	ArxPaxRegAddr_RPDO2_size_words_ = 0x0714, // RPDO2 size in words
+	ArxPaxRegAddr_RPDO2_size_words = 0x0714, // RPDO2 size in words
 	ArxPaxRegAddr_RPDO2_transmission_type = 0x0715, // asynchronous only (0 to disable, N to enable)
 	ArxPaxRegAddr_RPDO2_timeout = 0x0716, // RPDO2 timeout in ms (0 to disable)
 	ArxPaxRegAddr_parameters2_spare2 = 0x0717, // (not used)
@@ -557,7 +557,7 @@ enum
 	ArxPaxRegAddr_TPDO1_map3_index = 0x071D, // TPDO1 map3 index
 	ArxPaxRegAddr_TPDO1_map4_sub_index_and_size = 0x071E, // TPDO1 map4 sub index (high byte) and size in bits (low bit)
 	ArxPaxRegAddr_TPDO1_map4_index = 0x071F, // TPDO1 map4 index
-	ArxPaxRegAddr_TPDO1_size_words_ = 0x0720, // TPDO1 size in words
+	ArxPaxRegAddr_TPDO1_size_words = 0x0720, // TPDO1 size in words
 	ArxPaxRegAddr_TPDO1_transmission_type = 0x0721, // TPDO1 number of syncs per transmission 0 to 240 (0 to disable, N for every Nth sync)
 	ArxPaxRegAddr_TPDO1_event_time = 0x0722, // TPDO1 event time in ms for async tpdos (0 to disable)
 	ArxPaxRegAddr_TPDO1_sync_window = 0x0723, // TPDO1  sync window (not used)
@@ -569,7 +569,7 @@ enum
 	ArxPaxRegAddr_TPDO2_map3_index = 0x0729, // TPDO2 map3 index
 	ArxPaxRegAddr_TPDO2_map4_sub_index_and_size = 0x072A, // TPDO2 map4 sub index (high byte) and size in bits (low bit)
 	ArxPaxRegAddr_TPDO2_map4_index = 0x072B, // TPDO2 map4 index
-	ArxPaxRegAddr_TPDO2_size_words_ = 0x072C, // TPDO2 size in words
+	ArxPaxRegAddr_TPDO2_size_words = 0x072C, // TPDO2 size in words
 	ArxPaxRegAddr_TPDO2_transmission_type = 0x072D, // TPDO2 number of syncs per transmission 0 to 240 (0 to disable, N for every Nth sync)
 	ArxPaxRegAddr_TPDO2_event_time = 0x072E, // TPDO2 event time in ms for async tpdos (0 to disable)
 	ArxPaxRegAddr_TPDO2_sync_window = 0x072F, // TPDO2  sync window (not used)
@@ -581,7 +581,7 @@ enum
 	ArxPaxRegAddr_TPDO3_map3_index = 0x0735, // TPDO3 map3 index
 	ArxPaxRegAddr_TPDO3_map4_sub_index_and_size = 0x0736, // TPDO3 map4 sub index (high byte) and size in bits (low bit)
 	ArxPaxRegAddr_TPDO3_map4_index = 0x0737, // TPDO3 map4 index
-	ArxPaxRegAddr_TPDO3_size_words_ = 0x0738, // TPDO3 size in words
+	ArxPaxRegAddr_TPDO3_size_words = 0x0738, // TPDO3 size in words
 	ArxPaxRegAddr_TPDO3_transmission_type = 0x0739, // TPDO3 number of syncs per transmission 0 to 240 (0 to disable, N for every Nth sync)
 	ArxPaxRegAddr_TPDO3_event_time = 0x073A, // TPDO3 event time in ms for async tpdos (0 to disable)
 	ArxPaxRegAddr_TPDO3_sync_window = 0x073B, // TPDO3  sync window (not used)
@@ -593,7 +593,7 @@ enum
 	ArxPaxRegAddr_TPDO4_map3_index = 0x0741, // TPDO4 map3 index
 	ArxPaxRegAddr_TPDO4_map4_sub_index_and_size = 0x0742, // TPDO4 map4 sub index (high byte) and size in bits (low bit)
 	ArxPaxRegAddr_TPDO4_map4_index = 0x0743, // TPDO4 map4 index
-	ArxPaxRegAddr_TPDO4_size_words_ = 0x0744, // TPDO4 size in words
+	ArxPaxRegAddr_TPDO4_size_words = 0x0744, // TPDO4 size in words
 	ArxPaxRegAddr_TPDO4_transmission_type = 0x0745, // TPDO4 number of syncs per transmission 0 to 240 (0 to disable, N for every Nth sync)
 	ArxPaxRegAddr_TPDO4_event_time = 0x0746, // TPDO4 event time in ms for async tpdos (0 to disable)
 	ArxPaxRegAddr_TPDO4_sync_window = 0x0747, // TPDO4  sync window (not used)
