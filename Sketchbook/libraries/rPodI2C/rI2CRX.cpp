@@ -4,18 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef ARDUINO_ARCH_AVR
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
-#ifndef ARDUINO_ARCH_AVR
-	#include <netinet/in.h>
-	#include <endian.h>
-	#include <inttypes.h>
-#else
-	#include <teensyByteOrder.h>
-#endif
+#include <teensyByteOrder.h>
+
 
 uint8_t buffer[I2C_BUFFER_SIZE];
 uint16_t bufferBegin;
