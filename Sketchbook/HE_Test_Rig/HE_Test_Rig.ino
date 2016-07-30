@@ -21,6 +21,7 @@ extern uint8_t asi_maxReqIdx;
 
 char canStart = 0;
 char bothReady = 0;
+uint32_t startTime = 0;
 
 #ifdef MODE_I2C
 uint32_t prevSpeed = 0;
@@ -61,8 +62,8 @@ void setup()
   optoncdt_init();
   #ifndef MODE_SERIAL
   optoncdt_startReadings();
-  //asi_setupDac();
-  asi_setupRemote();
+  asi_setupDac();
+  //asi_setupRemote();
   canStart = 1;
   #endif
 }
@@ -92,7 +93,7 @@ void loop()
     asi_dataFlag = 0;
 
     #ifdef MODE_SERIAL
-    Serial.print(millis(), DEC);
+    Serial.print((millis() - startTime), DEC);
     Serial.print(",");
     Serial.print(asi_lastSpeed, DEC);
     Serial.print(",");
@@ -109,7 +110,7 @@ void loop()
     #endif
     #ifdef MODE_I2C
     rI2CTX_beginFrame();
-    rI2CTX_addParameter(2, (int32_t)millis());
+    rI2CTX_addParameter(2, (int32_t)(millis() - startTime));
     rI2CTX_addParameter(3, (int32_t)asi_lastSpeed);
     rI2CTX_addParameter(4, (int32_t)optoncdt_value);
     for (di = 0; di <= asi_maxReqIdx; di++)
@@ -148,7 +149,7 @@ void loop()
       }
       else
       {
-        //Serial.println("\r\ncommand cancelled\r\n");
+        Serial.println("\r\ncommand cancelled\r\n");
         computer_cmd_buff_idx = 0;
         asi_emergencyStop();
       }
@@ -165,7 +166,7 @@ void loop()
           asi_emergencyStop();
         }
         else if (set_val < 0 || set_val > 10000) {
-          //Serial.println("value out of range");
+          Serial.println("value out of range");
           asi_emergencyStop();
         }
         else {
@@ -179,9 +180,10 @@ void loop()
         digitalWrite(13, HIGH);
         Serial.println("Start");
         optoncdt_startReadings();
-        //asi_setupDac();
-        asi_setupRemote();
+        asi_setupDac();
+        //asi_setupRemote();
         canStart = 1;
+        startTime = millis();
       }
       else if (strcmp((const char*)computer_cmd_buff, "RESET") == 0)
       {
@@ -191,7 +193,7 @@ void loop()
         WRITE_RESTART(0x5FA0004);
       }
       else if (strlen((const char*)computer_cmd_buff) > 0){
-        //Serial.println("invalid command");
+        Serial.println("invalid command");
         asi_emergencyStop();
       }
       computer_cmd_buff_idx = 0;

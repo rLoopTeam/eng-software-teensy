@@ -41,9 +41,9 @@ void asi_setupDac()
 {
   #define DAC_BITS 12
   #define DAC_PIN A14
-  pinMode(DAC_PIN, OUTPUT);
+  //pinMode(DAC_PIN, OUTPUT);
   analogWriteResolution(DAC_BITS);
-  analogWrite(A14, 0);
+  analogWrite(DAC_PIN, 0);
   ModRTF_PresetParam(ArxPaxRegAddr_Throttle_full_voltage, 3 * 4096);
   delay(100);
   ModRTF_PresetParam(ArxPaxRegAddr_Throttle_off_voltage, 4096 / 2);
@@ -85,7 +85,7 @@ void asi_setSpeed_internal()
     rounded = round(y);
     if (rounded < 0) { rounded = 0; }
     if (rounded >= (1 << DAC_BITS)) { rounded = (1 << DAC_BITS) - 1; }
-    analogWrite(DAC_PIN, rounded);
+    analogWrite(DAC_PIN, (int)rounded);
     asi_lastSpeed = rounded;
   }
   else
@@ -112,6 +112,7 @@ void asi_emergencyStop()
   asi_pendingSpeed = -1;
   analogWrite(DAC_PIN, 0);
   ModRTF_PresetParam(ArxPaxRegAddr_Remote_Throttle_Voltage, 0);
+  asi_lastSpeed = 0;
   asi_pendingReply = 1;
 }
 
