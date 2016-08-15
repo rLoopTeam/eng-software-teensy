@@ -8,6 +8,9 @@ void optoncdt_init()
   pinMode(9, INPUT);
   pinMode(10, OUTPUT);
   Serial2.begin(OPTONCDT_BAUD);
+  #ifdef DEBUG
+  Serial.println("optoncdt_init");
+  #endif
 }
 
 void optoncdt_startReadings()
@@ -15,6 +18,9 @@ void optoncdt_startReadings()
   Serial2.print("LASERPOW FULL\r\n");
   delay(100);
   Serial2.print("OUTPUT RS422\r\n");
+  #ifdef DEBUG
+  Serial.println("optoncdt_startReadings");
+  #endif
 }
 
 uint32_t optoncdt_convertRaw(uint8_t* buff)

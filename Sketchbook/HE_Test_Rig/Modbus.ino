@@ -17,6 +17,20 @@ void ModRTU_Send(uint8_t addr, uint8_t func, uint8_t* buf, uint8_t n)
   crc = ModRTU_CRC(modbus_buff, 2 + n);
   *crc_ptr = crc;
 
+  /*
+  #ifdef DEBUG
+  Serial.print("MODRTU SEND ");
+  {
+    int i;
+    for (i = 0; i < 2 + n + 2; i++) {
+      Serial.print(" ");
+      Serial.print(modbus_buff[i], HEX);
+    }
+  }
+  Serial.println();
+  #endif
+  //*/
+
   Serial1.write(modbus_buff, 2 + n + 2);
 }
 

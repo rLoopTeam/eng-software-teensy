@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define DEBUG
+
 #define MODE_SERIAL
 //#define MODE_I2C
 
@@ -15,13 +17,15 @@ extern uint32_t optoncdt_value;
 extern char asi_dataFlag;
 extern char asi_allDataFlag;
 extern uint16_t asi_data[];
-extern uint16_t asi_lastSpeed;
+extern uint16_t asi_lastThrottle;
 extern int8_t asi_lastReqIdx;
 extern uint8_t asi_maxReqIdx;
 
 char canStart = 0;
 char bothReady = 0;
 uint32_t startTime = 0;
+char bacdoor = 0, ild1320 = 0;
+char asiHasSomeConfig = 0;
 
 #ifdef MODE_I2C
 uint32_t prevSpeed = 0;
@@ -40,6 +44,17 @@ void setup()
 {
   #ifdef MODE_SERIAL
   Serial.begin(115200); // baud doesn't matter, this is a virtual bus
+
+  #ifdef DEBUG
+  while(1)
+  {
+    // wait for user input
+    if (Serial.available() > 0) {
+      Serial.read();
+      break;
+    }
+  }
+  #endif
   #endif
   #ifdef MODE_I2C
   Wire.begin(I2C_MASTER, 0, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000, I2C_OP_MODE_DMA);
@@ -74,6 +89,15 @@ uint16_t computer_cmd_buff_idx = 0;
 
 void loop()
 {
+  static uint64_t last_report_time = 0;
+  uint32_t now;
+
+  if (bacdoor != 0 || ild1320 != 0)
+  {
+    bridge_task();
+    return;
+  }
+
   if (canStart != 0) {
     optoncdt_task();
     asi_task();
@@ -83,8 +107,15 @@ void loop()
     bothReady = 1;
   }
 
-  if ((optoncdt_flag != 0 && asi_dataFlag != 0 && asi_allDataFlag != 0 && bothReady != 0)
+  if (((optoncdt_flag != 0 && asi_dataFlag != 0 && asi_allDataFlag != 0 && bothReady != 0)
   || (bothReady == 0 && (optoncdt_flag != 0 || (asi_dataFlag != 0 && asi_allDataFlag != 0)))
+  )
+  && (millis() - last_report_time) >
+    #ifndef DEBUG
+    200
+    #else
+    2000
+    #endif
   )
   {
     int di;
@@ -92,10 +123,16 @@ void loop()
     optoncdt_flag = 0;
     asi_dataFlag = 0;
 
+    now = millis();
+    last_report_time = now;
+    if (startTime == 0) {
+      startTime = now;
+    }
+    
     #ifdef MODE_SERIAL
-    Serial.print((millis() - startTime), DEC);
+    Serial.print((now - startTime), DEC);
     Serial.print(",");
-    Serial.print(asi_lastSpeed, DEC);
+    Serial.print(asi_lastThrottle, DEC);
     Serial.print(",");
     Serial.print(optoncdt_value, DEC);
     Serial.print(",");
@@ -111,7 +148,7 @@ void loop()
     #ifdef MODE_I2C
     rI2CTX_beginFrame();
     rI2CTX_addParameter(2, (int32_t)(millis() - startTime));
-    rI2CTX_addParameter(3, (int32_t)asi_lastSpeed);
+    rI2CTX_addParameter(3, (int32_t)asi_lastThrottle);
     rI2CTX_addParameter(4, (int32_t)optoncdt_value);
     for (di = 0; di <= asi_maxReqIdx; di++)
     {
@@ -157,12 +194,12 @@ void loop()
     else {
       // received a return
       computer_cmd_buff[computer_cmd_buff_idx] = 0;
-      if (strncmp((const char*)computer_cmd_buff, "SET", 3) == 0) {
+      if (strncmp((const char*)computer_cmd_buff, "THROTTLE", 8) == 0) {
         char* read_end_ptr;
         char* write_end_ptr = (char*)&computer_cmd_buff[computer_cmd_buff_idx];
-        int set_val = strtol((const char*)&computer_cmd_buff[3], &read_end_ptr, 10);
+        int set_val = strtol((const char*)&computer_cmd_buff[8], &read_end_ptr, 10);
         if ((uint32_t)read_end_ptr != (uint32_t)write_end_ptr) {
-          //Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
+          Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
           asi_emergencyStop();
         }
         else if (set_val < 0 || set_val > 10000) {
@@ -170,20 +207,127 @@ void loop()
           asi_emergencyStop();
         }
         else {
-          //Serial.println("DAC written");
-          asi_setSpeed(set_val);
+          #ifdef DEBUG
+          Serial.println("CMD THROTTLE");
+          #endif
+          asi_setThrottle(set_val);
         }
+      }
+      else if (strncmp((const char*)computer_cmd_buff, "SETRPM", 6) == 0) {
+        char* read_end_ptr;
+        char* write_end_ptr = (char*)&computer_cmd_buff[computer_cmd_buff_idx];
+        int set_val = strtol((const char*)&computer_cmd_buff[6], &read_end_ptr, 10);
+        if ((uint32_t)read_end_ptr != (uint32_t)write_end_ptr) {
+          Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
+          asi_emergencyStop();
+        }
+        else if (set_val < 0 || set_val > 10000) {
+          Serial.println("value out of range");
+          asi_emergencyStop();
+        }
+        else {
+          #ifdef DEBUG
+          Serial.println("CMD SETRPM");
+          #endif
+          asi_setRpm(set_val);
+        }
+      }
+      else if (strncmp((const char*)computer_cmd_buff, "SEND", 4) == 0) {
+        int ci, cmdlen;
+        HardwareSerial* tgt = computer_cmd_buff[4] == '2' ? &Serial2 : &Serial1;
+        cmdlen = strlen((const char*)computer_cmd_buff);
+        for (ci = 5; ci < cmdlen; ci += 2) {
+          char hexPair[3];
+          uint8_t hexRes;
+          hexPair[0] = computer_cmd_buff[ci];
+          hexPair[1] = computer_cmd_buff[ci + 1];
+          hexPair[2] = 0;
+          hexRes = (uint8_t)strtol(hexPair, NULL, 16);
+          tgt->write(hexRes);
+        }
+        #ifdef DEBUG
+        Serial.print("CMD SEND ");
+        Serial.print((ci - 5) / 2, DEC);
+        Serial.println();
+        #endif
+      }
+      else if (strncmp((const char*)computer_cmd_buff, "MODBUSPARAMSET", 14) == 0)
+      {
+        int ci, bi, cmdlen;
+        uint16_t v16s[2];
+        cmdlen = strlen((const char*)computer_cmd_buff);
+        for (ci = 14, bi = 0; ci < cmdlen && bi < 2; ci += 4, bi++) {
+          char hexPair[5];
+          hexPair[0] = computer_cmd_buff[ci];
+          hexPair[1] = computer_cmd_buff[ci + 1];
+          hexPair[2] = computer_cmd_buff[ci + 2];
+          hexPair[3] = computer_cmd_buff[ci + 3];
+          hexPair[4] = 0;
+          v16s[bi] = (uint8_t)strtol(hexPair, NULL, 16);
+        }
+        if (bi == 2) {
+          #ifdef DEBUG
+          Serial.print("Sending ModRTF_PresetParam ");
+          Serial.print(v16s[0], HEX);
+          Serial.print(" ");
+          Serial.print(v16s[1], HEX);
+          Serial.println();
+          #endif
+          ModRTF_PresetParam(v16s[0], v16s[1]);
+        }
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "CONFIGLASER") == 0)
+      {
+        optoncdt_startReadings();
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "CONFIGDAC") == 0)
+      {
+        optoncdt_startReadings();
+        asi_setupDac();
+        asiHasSomeConfig = 1;
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "CONFIGREMOTEDAC") == 0)
+      {
+        optoncdt_startReadings();
+        asi_setupRemote();
+        asiHasSomeConfig = 1;
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "CONFIGRPM") == 0)
+      {
+        optoncdt_startReadings();
+        asi_setupRemoteRpm();
+        asiHasSomeConfig = 1;
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "FLUSH") == 0)
+      {
+        Serial1.flush();
+        Serial2.flush();
       }
       else if (strcmp((const char*)computer_cmd_buff, "START") == 0)
       {
+        if (asiHasSomeConfig == 0) {
+          asi_setupDac();
+          asiHasSomeConfig = 1;
+        }
         pinMode(13, OUTPUT);
         digitalWrite(13, HIGH);
         Serial.println("Start");
-        optoncdt_startReadings();
-        asi_setupDac();
-        //asi_setupRemote();
         canStart = 1;
-        startTime = millis();
+        startTime = 0;
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "STOP") == 0)
+      {
+        asi_emergencyStop();
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "BACDOOR") == 0)
+      {
+        bacdoor = 1;
+        Serial.println("BacDoor Passthrough Enabled");
+      }
+      else if (strcmp((const char*)computer_cmd_buff, "ILD1320") == 0)
+      {
+        ild1320 = 1;
+        Serial.println("ILD1320 Passthrough Enabled");
       }
       else if (strcmp((const char*)computer_cmd_buff, "RESET") == 0)
       {
@@ -248,3 +392,28 @@ void ControlLoop()
   processingPi = micros() - processingPi;
 }
 #endif
+
+void bridge_task(void)
+{
+  HardwareSerial* tgt = NULL;
+  if (bacdoor != 0) {
+    tgt = &Serial1;
+  }
+  else if (ild1320 != 0) {
+    tgt = &Serial2;
+  }
+  while (Serial.available() > 0)
+  {
+    uint8_t c;
+    c = Serial.read();
+    tgt->write(c);
+  }
+  while (tgt->available() > 0)
+  {
+    uint8_t c;
+    c = tgt->read();
+    Serial.write(c);
+  }
+  Serial.send_now();
+}
+
