@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ChooseWorkspaceDialogSettings">
+		<item value="377" key="DIALOG_Y_ORIGIN"/>
+		<item value="722" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+	<section name="CleanDialogSettings">
+		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="305" key="DIALOG_Y_ORIGIN"/>
+		<item value="377" key="DIALOG_HEIGHT"/>
+		<item value="774" key="DIALOG_X_ORIGIN"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+	</section>
+	<section name="NewWizardAction">
+		<item value="org.eclipse.cdt.ui.wizards.NewCWizard1" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.ui.Basic"/>
+			<item value="org.eclipse.cdt.ui.newCWizards"/>
+		</list>
+	</section>
+</section>

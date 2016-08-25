@@ -1,0 +1,54 @@
+14:13:25 **** Incremental Build of configuration Debug for project USB_Serial_Test ****
+make -j6 all 
+Building file: ../utilities/fsl_debug_console.c
+Building file: ../utilities/fsl_notifier.c
+Building file: ../utilities/fsl_sbrk.c
+Building file: ../utilities/fsl_shell.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"utilities/fsl_debug_console.d" -MT"utilities/fsl_debug_console.o" -c -o "utilities/fsl_debug_console.o" "../utilities/fsl_debug_console.c"
+Building file: ../startup/startup_MK20LH7.S
+Building file: ../startup/system_MK20LH7.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"utilities/fsl_notifier.d" -MT"utilities/fsl_notifier.o" -c -o "utilities/fsl_notifier.o" "../utilities/fsl_notifier.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"utilities/fsl_sbrk.d" -MT"utilities/fsl_sbrk.o" -c -o "utilities/fsl_sbrk.o" "../utilities/fsl_sbrk.c"
+Invoking: Cross ARM GNU Assembler
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -x assembler-with-cpp -MMD -MP -MF"startup/startup_MK20LH7.d" -MT"startup/startup_MK20LH7.o" -c -o "startup/startup_MK20LH7.o" "../startup/startup_MK20LH7.S"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"utilities/fsl_shell.d" -MT"utilities/fsl_shell.o" -c -o "utilities/fsl_shell.o" "../utilities/fsl_shell.c"
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"startup/system_MK20LH7.d" -MT"startup/system_MK20LH7.o" -c -o "startup/system_MK20LH7.o" "../startup/system_MK20LH7.c"
+Finished building: ../startup/startup_MK20LH7.S
+ 
+Building file: ../source/usb_1.1.0/osa/usb_osa_bm.c
+Finished building: ../utilities/fsl_sbrk.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"source/usb_1.1.0/osa/usb_osa_bm.d" -MT"source/usb_1.1.0/osa/usb_osa_bm.o" -c -o "source/usb_1.1.0/osa/usb_osa_bm.o" "../source/usb_1.1.0/osa/usb_osa_bm.c"
+ 
+Building file: ../source/usb_1.1.0/device/usb_device_dci.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -std=gnu99 -MMD -MP -MF"source/usb_1.1.0/device/usb_device_dci.d" -MT"source/usb_1.1.0/device/usb_device_dci.o" -c -o "source/usb_1.1.0/device/usb_device_dci.o" "../source/usb_1.1.0/device/usb_device_dci.c"
+../source/usb_1.1.0/osa/usb_osa_bm.c:31:17: fatal error: usb.h: No such file or directory
+ #include "usb.h"
+                 ^
+compilation terminated.
+../source/usb_1.1.0/device/usb_device_dci.c:32:17: fatal error: usb.h: No such file or directory
+ #include "usb.h"
+                 ^
+compilation terminated.
+make: *** [source/usb_1.1.0/device/usb_device_dci.o] Error 1
+make: *** Waiting for unfinished jobs....
+source/usb_1.1.0/device/subdir.mk:21: recipe for target 'source/usb_1.1.0/device/usb_device_dci.o' failed
+make: *** [source/usb_1.1.0/osa/usb_osa_bm.o] Error 1
+source/usb_1.1.0/osa/subdir.mk:18: recipe for target 'source/usb_1.1.0/osa/usb_osa_bm.o' failed
+Finished building: ../utilities/fsl_notifier.c
+ 
+Finished building: ../startup/system_MK20LH7.c
+ 
+Finished building: ../utilities/fsl_debug_console.c
+ 
+Finished building: ../utilities/fsl_shell.c
+ 
+
+14:13:26 Build Finished (took 933ms)
+

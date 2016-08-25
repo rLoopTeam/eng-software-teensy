@@ -1,0 +1,11 @@
+19:01:30 **** Incremental Build of configuration Debug for project TeensyTest ****
+make -j6 all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "TeensyTest.elf"
+   text	   data	    bss	    dec	    hex	filename
+   6944	    108	   4516	  11568	   2d30	TeensyTest.elf
+Finished building: TeensyTest.siz
+ 
+
+19:01:30 Build Finished (took 382ms)
+

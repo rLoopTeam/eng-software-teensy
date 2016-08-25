@@ -1,0 +1,30 @@
+19:10:45 **** Incremental Build of configuration Debug for project USB Serial Demo ****
+make -j6 all 
+Building file: ../source/virtual_com.c
+Invoking: Cross ARM C Compiler
+Building file: ../board/board.c
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"source/virtual_com.d" -MT"source/virtual_com.o" -c -o "source/virtual_com.o" "../source/virtual_com.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"board/board.d" -MT"board/board.o" -c -o "board/board.o" "../board/board.c"
+Finished building: ../board/board.c
+ 
+Finished building: ../source/virtual_com.c
+ 
+Building target: USB Serial Demo.elf
+Invoking: Cross ARM C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "../MK20DX256VLH7_flash.ld" -Xlinker --gc-sections -Wl,-Map,"USB Serial Demo.map" --specs=nano.specs -specs=nosys.specs -Xlinker -z -Xlinker muldefs -o "USB Serial Demo.elf"  ./utilities/fsl_debug_console.o ./utilities/fsl_notifier.o ./utilities/fsl_sbrk.o ./utilities/fsl_shell.o  ./usb_1.1.0/osa/usb_osa_bm.o  ./usb_1.1.0/device/usb_device_dci.o ./usb_1.1.0/device/usb_device_khci.o  ./startup/startup_MK20LH7.o ./startup/system_MK20LH7.o  ./source/usb_device_cdc_acm.o ./source/usb_device_ch9.o ./source/usb_device_descriptor.o ./source/virtual_com.o  ./drivers/fsl_adc16.o ./drivers/fsl_clock.o ./drivers/fsl_cmp.o ./drivers/fsl_cmt.o ./drivers/fsl_common.o ./drivers/fsl_crc.o ./drivers/fsl_dac.o ./drivers/fsl_dmamux.o ./drivers/fsl_dspi.o ./drivers/fsl_dspi_edma.o ./drivers/fsl_edma.o ./drivers/fsl_ewm.o ./drivers/fsl_flash.o ./drivers/fsl_flexbus.o ./drivers/fsl_flexcan.o ./drivers/fsl_ftm.o ./drivers/fsl_gpio.o ./drivers/fsl_i2c.o ./drivers/fsl_i2c_edma.o ./drivers/fsl_llwu.o ./drivers/fsl_lptmr.o ./drivers/fsl_mpu.o ./drivers/fsl_pdb.o ./drivers/fsl_pit.o ./drivers/fsl_pmc.o ./drivers/fsl_rcm.o ./drivers/fsl_rtc.o ./drivers/fsl_sai.o ./drivers/fsl_sai_edma.o ./drivers/fsl_sim.o ./drivers/fsl_smc.o ./drivers/fsl_tsi_v2.o ./drivers/fsl_uart.o ./drivers/fsl_uart_edma.o ./drivers/fsl_vref.o ./drivers/fsl_wdog.o  ./board/board.o ./board/clock_config.o ./board/pin_mux.o   
+Finished building target: USB Serial Demo.elf
+ 
+Invoking: Cross ARM GNU Create Flash Image
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-objcopy -O ihex "USB Serial Demo.elf"  "USB Serial Demo.hex"
+arm-none-eabi-size --format=berkeley "USB Serial Demo.elf"
+   text	   data	    bss	    dec	    hex	filename
+  24256	    360	   5608	  30224	   7610	USB Serial Demo.elf
+Finished building: USB Serial Demo.siz
+Finished building: USB Serial Demo.hex
+ 
+ 
+
+19:10:46 Build Finished (took 1s.197ms)
+

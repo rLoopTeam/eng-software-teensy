@@ -1,4 +1,3 @@
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <rI2CTX.h>
@@ -144,6 +143,8 @@ void ControlLoop(void)
   interrupts();
   
   uint32_t beginM = micros();
+
+  
 
   rI2CTX_beginFrame();
 
