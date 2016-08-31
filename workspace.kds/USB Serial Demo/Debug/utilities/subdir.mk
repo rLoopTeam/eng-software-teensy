@@ -26,7 +26,7 @@ C_DEPS += \
 utilities/%.o: ../utilities/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

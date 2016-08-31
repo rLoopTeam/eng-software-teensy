@@ -47,8 +47,9 @@ void setup(void)
 {
 
   //Open the I2C interface to the Pi
-  Wire.begin(I2C_MASTER, 0, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000, I2C_OP_MODE_DMA);
-  Wire.resetBus();
+  //Wire.begin(I2C_MASTER, 0, I2C_PINS_18_19, I2C_PULLUP_INT, I2C_RATE_1000, I2C_OP_MODE_DMA);
+  Serial1.begin(921600);
+  //Wire.resetBus();
 
   rI2CRX_begin();
 
@@ -66,12 +67,13 @@ void setup(void)
   controlTimer.priority(200);
 
     //Setup the 30Hz control loop timer
+  //controlTimer.begin(ControlLoop, 33333);
   controlTimer.begin(ControlLoop, 33333);
 
   //Start HE driver, TX control on pin 8, HE address 1
-  setupHE(8, 1); 
+  //setupHE(8, 1); 
   
-  
+  /*
   delay(2000);
   requestParam(263);
   checkResponse(10000);
@@ -112,7 +114,7 @@ void setup(void)
   requestParam(214);
   checkResponse(10000);
   Serial.print(String(HE1lastParameterValue()/4096.0));
-  Serial.println(" Min Throttle V");
+  Serial.println(" Min Throttle V");*/
 }
 
 void loop(void)
@@ -144,7 +146,7 @@ void ControlLoop(void)
   
   uint32_t beginM = micros();
 
-  
+  engine1Temp = 50;
 
   rI2CTX_beginFrame();
 
@@ -228,26 +230,28 @@ void ControlLoop(void)
 
   readingPi = micros();
 
-  Wire.requestFrom(51, 200, 500);
-  uint8_t recvByte;
+  //Wire.requestFrom(51, 200, 500);
+  //uint8_t recvByte;
 
   readingPi = micros() - readingPi;
 
   processingPi = micros();
   
-  while (Wire.available())
+  /*while (Wire.available())
   {
     recvByte = Wire.readByte();
     rI2CRX_receiveBytes(&recvByte, 1);
-  }
+  }*/
 
   processingPi = micros() - processingPi;
   
-  Wire.beginTransmission(51);
-  Wire.write(rI2CTX_buffer, rI2CTX_bufferPos);
+  //Wire.beginTransmission(51);
+  //Wire.write(rI2CTX_buffer, rI2CTX_bufferPos);
 
     transmitting = micros();
-  Wire.endTransmissionNB(I2C_STOP, 3000);
+  //Wire.endTransmissionNB(I2C_STOP, 3000);
+  Serial1.write(rI2CTX_buffer, rI2CTX_bufferPos);
+  
 
   transmitting = micros() - transmitting;
   

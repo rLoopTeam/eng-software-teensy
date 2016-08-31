@@ -3215,3 +3215,288 @@ Finished building: USB Serial Demo.hex
 make -j6 clean 
 rm -rf  USB\ Serial\ Demo.siz  ./utilities/fsl_debug_console.o ./utilities/fsl_notifier.o ./utilities/fsl_sbrk.o ./utilities/fsl_shell.o  ./usb_1.1.0/osa/usb_osa_bm.o  ./usb_1.1.0/device/usb_device_dci.o ./usb_1.1.0/device/usb_device_khci.o  ./startup/startup_MK20LH7.o ./startup/system_MK20LH7.o  ./source/usb_device_cdc_acm.o ./source/usb_device_ch9.o ./source/usb_device_descriptor.o ./source/virtual_com.o  ./drivers/fsl_adc16.o ./drivers/fsl_clock.o ./drivers/fsl_cmp.o ./drivers/fsl_cmt.o ./drivers/fsl_common.o ./drivers/fsl_crc.o ./drivers/fsl_dac.o ./drivers/fsl_dmamux.o ./drivers/fsl_dspi.o ./drivers/fsl_dspi_edma.o ./drivers/fsl_edma.o ./drivers/fsl_ewm.o ./drivers/fsl_flash.o ./drivers/fsl_flexbus.o ./drivers/fsl_flexcan.o ./drivers/fsl_ftm.o ./drivers/fsl_gpio.o ./drivers/fsl_i2c.o ./drivers/fsl_i2c_edma.o ./drivers/fsl_llwu.o ./drivers/fsl_lptmr.o ./drivers/fsl_mpu.o ./drivers/fsl_pdb.o ./drivers/fsl_pit.o ./drivers/fsl_pmc.o ./drivers/fsl_rcm.o ./drivers/fsl_rtc.o ./drivers/fsl_sai.o ./drivers/fsl_sai_edma.o ./drivers/fsl_sim.o ./drivers/fsl_smc.o ./drivers/fsl_tsi_v2.o ./drivers/fsl_uart.o ./drivers/fsl_uart_edma.o ./drivers/fsl_vref.o ./drivers/fsl_wdog.o  ./board/board.o ./board/clock_config.o ./board/pin_mux.o  ./utilities/fsl_debug_console.d ./utilities/fsl_notifier.d ./utilities/fsl_sbrk.d ./utilities/fsl_shell.d  ./usb_1.1.0/osa/usb_osa_bm.d  ./usb_1.1.0/device/usb_device_dci.d ./usb_1.1.0/device/usb_device_khci.d  ./startup/system_MK20LH7.d  ./source/usb_device_cdc_acm.d ./source/usb_device_ch9.d ./source/usb_device_descriptor.d ./source/virtual_com.d  ./drivers/fsl_adc16.d ./drivers/fsl_clock.d ./drivers/fsl_cmp.d ./drivers/fsl_cmt.d ./drivers/fsl_common.d ./drivers/fsl_crc.d ./drivers/fsl_dac.d ./drivers/fsl_dmamux.d ./drivers/fsl_dspi.d ./drivers/fsl_dspi_edma.d ./drivers/fsl_edma.d ./drivers/fsl_ewm.d ./drivers/fsl_flash.d ./drivers/fsl_flexbus.d ./drivers/fsl_flexcan.d ./drivers/fsl_ftm.d ./drivers/fsl_gpio.d ./drivers/fsl_i2c.d ./drivers/fsl_i2c_edma.d ./drivers/fsl_llwu.d ./drivers/fsl_lptmr.d ./drivers/fsl_mpu.d ./drivers/fsl_pdb.d ./drivers/fsl_pit.d ./drivers/fsl_pmc.d ./drivers/fsl_rcm.d ./drivers/fsl_rtc.d ./drivers/fsl_sai.d ./drivers/fsl_sai_edma.d ./drivers/fsl_sim.d ./drivers/fsl_smc.d ./drivers/fsl_tsi_v2.d ./drivers/fsl_uart.d ./drivers/fsl_uart_edma.d ./drivers/fsl_vref.d ./drivers/fsl_wdog.d  ./board/board.d ./board/clock_config.d ./board/pin_mux.d  USB\ Serial\ Demo.hex  ./startup/startup_MK20LH7.d  "USB Serial Demo.elf"
  
+19:48:14 **** Build of configuration Debug for project USB Serial Demo ****
+make -j6 all 
+Building file: ../utilities/fsl_debug_console.c
+Building file: ../utilities/fsl_notifier.c
+Building file: ../utilities/fsl_sbrk.c
+Building file: ../utilities/fsl_shell.c
+Building file: ../usb_1.1.0/osa/usb_osa_bm.c
+Invoking: Cross ARM C Compiler
+Building file: ../usb_1.1.0/device/usb_device_dci.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"utilities/fsl_debug_console.d" -MT"utilities/fsl_debug_console.o" -c -o "utilities/fsl_debug_console.o" "../utilities/fsl_debug_console.c"
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"utilities/fsl_notifier.d" -MT"utilities/fsl_notifier.o" -c -o "utilities/fsl_notifier.o" "../utilities/fsl_notifier.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"utilities/fsl_shell.d" -MT"utilities/fsl_shell.o" -c -o "utilities/fsl_shell.o" "../utilities/fsl_shell.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"usb_1.1.0/osa/usb_osa_bm.d" -MT"usb_1.1.0/osa/usb_osa_bm.o" -c -o "usb_1.1.0/osa/usb_osa_bm.o" "../usb_1.1.0/osa/usb_osa_bm.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"utilities/fsl_sbrk.d" -MT"utilities/fsl_sbrk.o" -c -o "utilities/fsl_sbrk.o" "../utilities/fsl_sbrk.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"usb_1.1.0/device/usb_device_dci.d" -MT"usb_1.1.0/device/usb_device_dci.o" -c -o "usb_1.1.0/device/usb_device_dci.o" "../usb_1.1.0/device/usb_device_dci.c"
+Finished building: ../utilities/fsl_sbrk.c
+ 
+Building file: ../usb_1.1.0/device/usb_device_khci.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"usb_1.1.0/device/usb_device_khci.d" -MT"usb_1.1.0/device/usb_device_khci.o" -c -o "usb_1.1.0/device/usb_device_khci.o" "../usb_1.1.0/device/usb_device_khci.c"
+Finished building: ../utilities/fsl_notifier.c
+ 
+Building file: ../startup/startup_MK20LH7.S
+Finished building: ../utilities/fsl_shell.c
+Invoking: Cross ARM GNU Assembler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -x assembler-with-cpp -MMD -MP -MF"startup/startup_MK20LH7.d" -MT"startup/startup_MK20LH7.o" -c -o "startup/startup_MK20LH7.o" "../startup/startup_MK20LH7.S"
+ 
+Building file: ../startup/system_MK20LH7.c
+Finished building: ../usb_1.1.0/device/usb_device_dci.c
+Finished building: ../usb_1.1.0/osa/usb_osa_bm.c
+Finished building: ../utilities/fsl_debug_console.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"startup/system_MK20LH7.d" -MT"startup/system_MK20LH7.o" -c -o "startup/system_MK20LH7.o" "../startup/system_MK20LH7.c"
+ 
+ 
+ 
+Building file: ../source/usb_device_cdc_acm.c
+Building file: ../source/usb_device_ch9.c
+Building file: ../source/usb_device_descriptor.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"source/usb_device_ch9.d" -MT"source/usb_device_ch9.o" -c -o "source/usb_device_ch9.o" "../source/usb_device_ch9.c"
+Invoking: Cross ARM C Compiler
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"source/usb_device_cdc_acm.d" -MT"source/usb_device_cdc_acm.o" -c -o "source/usb_device_cdc_acm.o" "../source/usb_device_cdc_acm.c"
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"source/usb_device_descriptor.d" -MT"source/usb_device_descriptor.o" -c -o "source/usb_device_descriptor.o" "../source/usb_device_descriptor.c"
+Finished building: ../startup/startup_MK20LH7.S
+ 
+Building file: ../source/virtual_com.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"source/virtual_com.d" -MT"source/virtual_com.o" -c -o "source/virtual_com.o" "../source/virtual_com.c"
+Finished building: ../source/usb_device_descriptor.c
+Finished building: ../source/usb_device_cdc_acm.c
+ 
+ 
+Building file: ../drivers/fsl_adc16.c
+Building file: ../drivers/fsl_clock.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_clock.d" -MT"drivers/fsl_clock.o" -c -o "drivers/fsl_clock.o" "../drivers/fsl_clock.c"
+Invoking: Cross ARM C Compiler
+Finished building: ../usb_1.1.0/device/usb_device_khci.c
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_adc16.d" -MT"drivers/fsl_adc16.o" -c -o "drivers/fsl_adc16.o" "../drivers/fsl_adc16.c"
+Finished building: ../source/usb_device_ch9.c
+ 
+ 
+Building file: ../drivers/fsl_cmp.c
+Building file: ../drivers/fsl_cmt.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_cmp.d" -MT"drivers/fsl_cmp.o" -c -o "drivers/fsl_cmp.o" "../drivers/fsl_cmp.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_cmt.d" -MT"drivers/fsl_cmt.o" -c -o "drivers/fsl_cmt.o" "../drivers/fsl_cmt.c"
+Finished building: ../startup/system_MK20LH7.c
+ 
+Building file: ../drivers/fsl_common.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_common.d" -MT"drivers/fsl_common.o" -c -o "drivers/fsl_common.o" "../drivers/fsl_common.c"
+Finished building: ../source/virtual_com.c
+ 
+Building file: ../drivers/fsl_crc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_crc.d" -MT"drivers/fsl_crc.o" -c -o "drivers/fsl_crc.o" "../drivers/fsl_crc.c"
+Finished building: ../drivers/fsl_adc16.c
+ 
+Building file: ../drivers/fsl_dac.c
+Finished building: ../drivers/fsl_cmp.c
+Finished building: ../drivers/fsl_cmt.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_dac.d" -MT"drivers/fsl_dac.o" -c -o "drivers/fsl_dac.o" "../drivers/fsl_dac.c"
+ 
+ 
+Building file: ../drivers/fsl_dmamux.c
+Building file: ../drivers/fsl_dspi.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_dmamux.d" -MT"drivers/fsl_dmamux.o" -c -o "drivers/fsl_dmamux.o" "../drivers/fsl_dmamux.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_dspi.d" -MT"drivers/fsl_dspi.o" -c -o "drivers/fsl_dspi.o" "../drivers/fsl_dspi.c"
+Finished building: ../drivers/fsl_clock.c
+ 
+Building file: ../drivers/fsl_dspi_edma.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_dspi_edma.d" -MT"drivers/fsl_dspi_edma.o" -c -o "drivers/fsl_dspi_edma.o" "../drivers/fsl_dspi_edma.c"
+Finished building: ../drivers/fsl_common.c
+ 
+Building file: ../drivers/fsl_edma.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_edma.d" -MT"drivers/fsl_edma.o" -c -o "drivers/fsl_edma.o" "../drivers/fsl_edma.c"
+Finished building: ../drivers/fsl_crc.c
+ 
+Finished building: ../drivers/fsl_dmamux.c
+Building file: ../drivers/fsl_ewm.c
+ 
+Invoking: Cross ARM C Compiler
+Building file: ../drivers/fsl_flash.c
+Finished building: ../drivers/fsl_dac.c
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_ewm.d" -MT"drivers/fsl_ewm.o" -c -o "drivers/fsl_ewm.o" "../drivers/fsl_ewm.c"
+Invoking: Cross ARM C Compiler
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_flash.d" -MT"drivers/fsl_flash.o" -c -o "drivers/fsl_flash.o" "../drivers/fsl_flash.c"
+Building file: ../drivers/fsl_flexbus.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_flexbus.d" -MT"drivers/fsl_flexbus.o" -c -o "drivers/fsl_flexbus.o" "../drivers/fsl_flexbus.c"
+Finished building: ../drivers/fsl_dspi.c
+Finished building: ../drivers/fsl_dspi_edma.c
+ 
+ 
+Building file: ../drivers/fsl_flexcan.c
+Building file: ../drivers/fsl_ftm.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_flexcan.d" -MT"drivers/fsl_flexcan.o" -c -o "drivers/fsl_flexcan.o" "../drivers/fsl_flexcan.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_ftm.d" -MT"drivers/fsl_ftm.o" -c -o "drivers/fsl_ftm.o" "../drivers/fsl_ftm.c"
+Finished building: ../drivers/fsl_edma.c
+ 
+Building file: ../drivers/fsl_gpio.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_gpio.d" -MT"drivers/fsl_gpio.o" -c -o "drivers/fsl_gpio.o" "../drivers/fsl_gpio.c"
+Finished building: ../drivers/fsl_ewm.c
+ 
+Building file: ../drivers/fsl_i2c.c
+Finished building: ../drivers/fsl_flexbus.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_i2c.d" -MT"drivers/fsl_i2c.o" -c -o "drivers/fsl_i2c.o" "../drivers/fsl_i2c.c"
+ 
+Building file: ../drivers/fsl_i2c_edma.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_i2c_edma.d" -MT"drivers/fsl_i2c_edma.o" -c -o "drivers/fsl_i2c_edma.o" "../drivers/fsl_i2c_edma.c"
+Finished building: ../drivers/fsl_flash.c
+ 
+Building file: ../drivers/fsl_llwu.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_llwu.d" -MT"drivers/fsl_llwu.o" -c -o "drivers/fsl_llwu.o" "../drivers/fsl_llwu.c"
+Finished building: ../drivers/fsl_ftm.c
+ 
+Building file: ../drivers/fsl_lptmr.c
+Finished building: ../drivers/fsl_gpio.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_lptmr.d" -MT"drivers/fsl_lptmr.o" -c -o "drivers/fsl_lptmr.o" "../drivers/fsl_lptmr.c"
+Finished building: ../drivers/fsl_flexcan.c
+ 
+ 
+Building file: ../drivers/fsl_mpu.c
+Building file: ../drivers/fsl_pdb.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_mpu.d" -MT"drivers/fsl_mpu.o" -c -o "drivers/fsl_mpu.o" "../drivers/fsl_mpu.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_pdb.d" -MT"drivers/fsl_pdb.o" -c -o "drivers/fsl_pdb.o" "../drivers/fsl_pdb.c"
+../drivers/fsl_mpu.c:37:1: warning: excess elements in array initializer [enabled by default]
+ const clock_ip_name_t g_mpuClock[FSL_FEATURE_SOC_MPU_COUNT] = MPU_CLOCKS;
+ ^
+../drivers/fsl_mpu.c:37:1: warning: (near initialization for 'g_mpuClock') [enabled by default]
+Finished building: ../drivers/fsl_i2c_edma.c
+ 
+Building file: ../drivers/fsl_pit.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_pit.d" -MT"drivers/fsl_pit.o" -c -o "drivers/fsl_pit.o" "../drivers/fsl_pit.c"
+Finished building: ../drivers/fsl_i2c.c
+ 
+Building file: ../drivers/fsl_pmc.c
+Finished building: ../drivers/fsl_llwu.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_pmc.d" -MT"drivers/fsl_pmc.o" -c -o "drivers/fsl_pmc.o" "../drivers/fsl_pmc.c"
+ 
+Building file: ../drivers/fsl_rcm.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_rcm.d" -MT"drivers/fsl_rcm.o" -c -o "drivers/fsl_rcm.o" "../drivers/fsl_rcm.c"
+Finished building: ../drivers/fsl_lptmr.c
+ 
+Building file: ../drivers/fsl_rtc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_rtc.d" -MT"drivers/fsl_rtc.o" -c -o "drivers/fsl_rtc.o" "../drivers/fsl_rtc.c"
+Finished building: ../drivers/fsl_pdb.c
+Finished building: ../drivers/fsl_mpu.c
+ 
+Building file: ../drivers/fsl_sai.c
+ 
+Building file: ../drivers/fsl_sai_edma.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_sai.d" -MT"drivers/fsl_sai.o" -c -o "drivers/fsl_sai.o" "../drivers/fsl_sai.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_sai_edma.d" -MT"drivers/fsl_sai_edma.o" -c -o "drivers/fsl_sai_edma.o" "../drivers/fsl_sai_edma.c"
+Finished building: ../drivers/fsl_pit.c
+ 
+Building file: ../drivers/fsl_sim.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_sim.d" -MT"drivers/fsl_sim.o" -c -o "drivers/fsl_sim.o" "../drivers/fsl_sim.c"
+Finished building: ../drivers/fsl_rcm.c
+Finished building: ../drivers/fsl_pmc.c
+ 
+ 
+Building file: ../drivers/fsl_smc.c
+Building file: ../drivers/fsl_tsi_v2.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_smc.d" -MT"drivers/fsl_smc.o" -c -o "drivers/fsl_smc.o" "../drivers/fsl_smc.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_tsi_v2.d" -MT"drivers/fsl_tsi_v2.o" -c -o "drivers/fsl_tsi_v2.o" "../drivers/fsl_tsi_v2.c"
+Finished building: ../drivers/fsl_rtc.c
+ 
+Building file: ../drivers/fsl_uart.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_uart.d" -MT"drivers/fsl_uart.o" -c -o "drivers/fsl_uart.o" "../drivers/fsl_uart.c"
+Finished building: ../drivers/fsl_sai_edma.c
+ 
+Building file: ../drivers/fsl_uart_edma.c
+Finished building: ../drivers/fsl_sai.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_uart_edma.d" -MT"drivers/fsl_uart_edma.o" -c -o "drivers/fsl_uart_edma.o" "../drivers/fsl_uart_edma.c"
+ 
+Building file: ../drivers/fsl_vref.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_vref.d" -MT"drivers/fsl_vref.o" -c -o "drivers/fsl_vref.o" "../drivers/fsl_vref.c"
+Finished building: ../drivers/fsl_sim.c
+ 
+Building file: ../drivers/fsl_wdog.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"drivers/fsl_wdog.d" -MT"drivers/fsl_wdog.o" -c -o "drivers/fsl_wdog.o" "../drivers/fsl_wdog.c"
+Finished building: ../drivers/fsl_smc.c
+ 
+Finished building: ../drivers/fsl_tsi_v2.c
+Building file: ../board/board.c
+ 
+Invoking: Cross ARM C Compiler
+Building file: ../board/clock_config.c
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"board/board.d" -MT"board/board.o" -c -o "board/board.o" "../board/board.c"
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"board/clock_config.d" -MT"board/clock_config.o" -c -o "board/clock_config.o" "../board/clock_config.c"
+Finished building: ../drivers/fsl_uart.c
+ 
+Building file: ../board/pin_mux.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MK20DX256VLH7" -I../startup -I../board -I../utilities -I../CMSIS -I../drivers -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\source" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\device" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\include" -I"C:\Users\David\Documents\GitHub\eng-software-teensy\workspace.kds\USB Serial Demo\usb_1.1.0\osa" -std=gnu99 -MMD -MP -MF"board/pin_mux.d" -MT"board/pin_mux.o" -c -o "board/pin_mux.o" "../board/pin_mux.c"
+Finished building: ../drivers/fsl_vref.c
+Finished building: ../drivers/fsl_uart_edma.c
+ 
+ 
+Finished building: ../drivers/fsl_wdog.c
+ 
+Finished building: ../board/board.c
+ 
+Finished building: ../board/clock_config.c
+ 
+Finished building: ../board/pin_mux.c
+ 
+Building target: USB Serial Demo.elf
+Invoking: Cross ARM C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "../MK20DX256VLH7_flash.ld" -Xlinker --gc-sections -Wl,-Map,"USB Serial Demo.map" --specs=nano.specs -specs=nosys.specs -Xlinker -z -Xlinker muldefs -o "USB Serial Demo.elf"  ./utilities/fsl_debug_console.o ./utilities/fsl_notifier.o ./utilities/fsl_sbrk.o ./utilities/fsl_shell.o  ./usb_1.1.0/osa/usb_osa_bm.o  ./usb_1.1.0/device/usb_device_dci.o ./usb_1.1.0/device/usb_device_khci.o  ./startup/startup_MK20LH7.o ./startup/system_MK20LH7.o  ./source/usb_device_cdc_acm.o ./source/usb_device_ch9.o ./source/usb_device_descriptor.o ./source/virtual_com.o  ./drivers/fsl_adc16.o ./drivers/fsl_clock.o ./drivers/fsl_cmp.o ./drivers/fsl_cmt.o ./drivers/fsl_common.o ./drivers/fsl_crc.o ./drivers/fsl_dac.o ./drivers/fsl_dmamux.o ./drivers/fsl_dspi.o ./drivers/fsl_dspi_edma.o ./drivers/fsl_edma.o ./drivers/fsl_ewm.o ./drivers/fsl_flash.o ./drivers/fsl_flexbus.o ./drivers/fsl_flexcan.o ./drivers/fsl_ftm.o ./drivers/fsl_gpio.o ./drivers/fsl_i2c.o ./drivers/fsl_i2c_edma.o ./drivers/fsl_llwu.o ./drivers/fsl_lptmr.o ./drivers/fsl_mpu.o ./drivers/fsl_pdb.o ./drivers/fsl_pit.o ./drivers/fsl_pmc.o ./drivers/fsl_rcm.o ./drivers/fsl_rtc.o ./drivers/fsl_sai.o ./drivers/fsl_sai_edma.o ./drivers/fsl_sim.o ./drivers/fsl_smc.o ./drivers/fsl_tsi_v2.o ./drivers/fsl_uart.o ./drivers/fsl_uart_edma.o ./drivers/fsl_vref.o ./drivers/fsl_wdog.o  ./board/board.o ./board/clock_config.o ./board/pin_mux.o   
+Finished building target: USB Serial Demo.elf
+ 
+Invoking: Cross ARM GNU Create Flash Image
+arm-none-eabi-objcopy -O ihex "USB Serial Demo.elf"  "USB Serial Demo.hex"
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "USB Serial Demo.elf"
+   text	   data	    bss	    dec	    hex	filename
+  24260	    360	   5608	  30228	   7614	USB Serial Demo.elf
+Finished building: USB Serial Demo.siz
+Finished building: USB Serial Demo.hex
+ 
+ 
+16:30:27 **** Clean-only build of configuration Debug for project USB Serial Demo ****
+make -j6 clean 
+rm -rf  USB\ Serial\ Demo.siz  ./utilities/fsl_debug_console.o ./utilities/fsl_notifier.o ./utilities/fsl_sbrk.o ./utilities/fsl_shell.o  ./usb_1.1.0/osa/usb_osa_bm.o  ./usb_1.1.0/device/usb_device_dci.o ./usb_1.1.0/device/usb_device_khci.o  ./startup/startup_MK20LH7.o ./startup/system_MK20LH7.o  ./source/usb_device_cdc_acm.o ./source/usb_device_ch9.o ./source/usb_device_descriptor.o ./source/virtual_com.o  ./drivers/fsl_adc16.o ./drivers/fsl_clock.o ./drivers/fsl_cmp.o ./drivers/fsl_cmt.o ./drivers/fsl_common.o ./drivers/fsl_crc.o ./drivers/fsl_dac.o ./drivers/fsl_dmamux.o ./drivers/fsl_dspi.o ./drivers/fsl_dspi_edma.o ./drivers/fsl_edma.o ./drivers/fsl_ewm.o ./drivers/fsl_flash.o ./drivers/fsl_flexbus.o ./drivers/fsl_flexcan.o ./drivers/fsl_ftm.o ./drivers/fsl_gpio.o ./drivers/fsl_i2c.o ./drivers/fsl_i2c_edma.o ./drivers/fsl_llwu.o ./drivers/fsl_lptmr.o ./drivers/fsl_mpu.o ./drivers/fsl_pdb.o ./drivers/fsl_pit.o ./drivers/fsl_pmc.o ./drivers/fsl_rcm.o ./drivers/fsl_rtc.o ./drivers/fsl_sai.o ./drivers/fsl_sai_edma.o ./drivers/fsl_sim.o ./drivers/fsl_smc.o ./drivers/fsl_tsi_v2.o ./drivers/fsl_uart.o ./drivers/fsl_uart_edma.o ./drivers/fsl_vref.o ./drivers/fsl_wdog.o  ./board/board.o ./board/clock_config.o ./board/pin_mux.o  ./utilities/fsl_debug_console.d ./utilities/fsl_notifier.d ./utilities/fsl_sbrk.d ./utilities/fsl_shell.d  ./usb_1.1.0/osa/usb_osa_bm.d  ./usb_1.1.0/device/usb_device_dci.d ./usb_1.1.0/device/usb_device_khci.d  ./startup/system_MK20LH7.d  ./source/usb_device_cdc_acm.d ./source/usb_device_ch9.d ./source/usb_device_descriptor.d ./source/virtual_com.d  ./drivers/fsl_adc16.d ./drivers/fsl_clock.d ./drivers/fsl_cmp.d ./drivers/fsl_cmt.d ./drivers/fsl_common.d ./drivers/fsl_crc.d ./drivers/fsl_dac.d ./drivers/fsl_dmamux.d ./drivers/fsl_dspi.d ./drivers/fsl_dspi_edma.d ./drivers/fsl_edma.d ./drivers/fsl_ewm.d ./drivers/fsl_flash.d ./drivers/fsl_flexbus.d ./drivers/fsl_flexcan.d ./drivers/fsl_ftm.d ./drivers/fsl_gpio.d ./drivers/fsl_i2c.d ./drivers/fsl_i2c_edma.d ./drivers/fsl_llwu.d ./drivers/fsl_lptmr.d ./drivers/fsl_mpu.d ./drivers/fsl_pdb.d ./drivers/fsl_pit.d ./drivers/fsl_pmc.d ./drivers/fsl_rcm.d ./drivers/fsl_rtc.d ./drivers/fsl_sai.d ./drivers/fsl_sai_edma.d ./drivers/fsl_sim.d ./drivers/fsl_smc.d ./drivers/fsl_tsi_v2.d ./drivers/fsl_uart.d ./drivers/fsl_uart_edma.d ./drivers/fsl_vref.d ./drivers/fsl_wdog.d  ./board/board.d ./board/clock_config.d ./board/pin_mux.d  USB\ Serial\ Demo.hex  ./startup/startup_MK20LH7.d  "USB Serial Demo.elf"
+ 

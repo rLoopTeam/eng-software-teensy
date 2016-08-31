@@ -781,8 +781,8 @@ void main(void)
 
     turnOnLED(); //Proof of life
 
-    while (1)
-    {
+    //while (1)
+    //{
         APP_task();
 
 #if USB_DEVICE_CONFIG_USE_TASK
@@ -793,5 +793,5 @@ void main(void)
         USB_DeviceKhciTaskFunction(s_cdcVcom.deviceHandle);
 #endif
 #endif
-    }
+   // }
 }
