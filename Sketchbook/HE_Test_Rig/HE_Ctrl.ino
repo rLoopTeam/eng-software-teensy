@@ -4,7 +4,6 @@
 #include "arxpax_regaddrs.h"
 
 #define MODBUS_BAUD 115200
-#define MODBUS_DIR_PIN 2
 #define MODBUS_TIMEOUT 5
 
 #define ASI_MAX_RPM 5000
@@ -28,11 +27,18 @@ uint16_t asi_lastThrottle = 0, asi_lastRpm = 0;
 void modbus_init()
 {
   int i;
+  #ifndef __AVR__
   pinMode(0, INPUT);
   pinMode(1, OUTPUT);
+  #else
+  pinMode(19, INPUT);
+  pinMode(18, OUTPUT);
+  #endif
   pinMode(MODBUS_DIR_PIN, OUTPUT);
   Serial1.begin(MODBUS_BAUD); // this must be 115200
+  #ifndef __AVR__
   Serial1.transmitterEnable(MODBUS_DIR_PIN);
+  #endif
   asi_pendingThrottle = -1;
   for (i = 0; i < ASI_DATA_STORE_SIZE; i++) {
     asi_data[i] = 0;
@@ -44,10 +50,19 @@ void modbus_init()
 
 void asi_setupDac()
 {
+#ifndef __AVR__
 #define DAC_BITS 12
+#define DAC_MAX 4095
 #define DAC_PIN A14
+#else
+#define DAC_BITS 8
+#define DAC_MAX 255
+#define DAC_PIN 3
+#endif
   //pinMode(DAC_PIN, OUTPUT);
+  #ifndef __AVR__
   analogWriteResolution(DAC_BITS);
+  #endif
   analogWrite(DAC_PIN, 0);
   ModRTF_PresetParam(ArxPaxRegAddr_Throttle_full_voltage, 3 * 4096);
   delay(100);
@@ -132,6 +147,10 @@ void asi_setSpeed_internal()
       rounded = (1 << DAC_BITS) - 1;
     }
     analogWrite(DAC_PIN, (int)rounded);
+    #ifdef __AVR__
+    TCCR3B &= 0xF9;
+    TCCR3B |= 0x01;
+    #endif
     asi_lastThrottle = rounded;
 #ifdef DEBUG
     Serial.println("DAC throttle output set");
@@ -156,15 +175,15 @@ void asi_setSpeed_internal()
     }
     else {
       addr = ArxPaxRegAddr_Remote_Throttle_Voltage;
-      rgmax = 4096 - 1;
+      rgmax = DAC_MAX;
       y = x * rgmax;
       y /=
         rounded = round(y);
       if (rounded < 0) {
         rounded = 0;
       }
-      if (rounded >= 4096) {
-        rounded = 4096 - 1;
+      if (rounded > DAC_MAX) {
+        rounded = DAC_MAX;
       }
       asi_lastThrottle = rounded;
       asi_lastRpm = 0;

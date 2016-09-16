@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define DEBUG
+//#define DEBUG
 
 #define MODE_SERIAL
 //#define MODE_I2C
@@ -10,6 +10,12 @@
 #ifdef MODE_I2C
 #include <rI2CTX.h>
 #include <rI2CRX.h>
+#endif
+
+#ifndef __AVR__
+#define MODBUS_DIR_PIN 2
+#else
+#define MODBUS_DIR_PIN 2
 #endif
 
 extern char optoncdt_flag;
@@ -43,7 +49,7 @@ void endFrame() {}
 void setup()
 {
   #ifdef MODE_SERIAL
-  Serial.begin(115200); // baud doesn't matter, this is a virtual bus
+  Serial.begin(57600); // baud doesn't matter, this is a virtual bus
 
   #ifdef DEBUG
   while(1)
@@ -143,7 +149,9 @@ void loop()
       Serial.print(",");
     }
     Serial.print("\r\n");
+    #ifndef __AVR__
     Serial.send_now();
+    #endif
     #endif
     #ifdef MODE_I2C
     rI2CTX_beginFrame();
@@ -199,7 +207,9 @@ void loop()
         char* write_end_ptr = (char*)&computer_cmd_buff[computer_cmd_buff_idx];
         int set_val = strtol((const char*)&computer_cmd_buff[8], &read_end_ptr, 10);
         if ((uint32_t)read_end_ptr != (uint32_t)write_end_ptr) {
+          #ifndef __AVR__
           Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
+          #endif
           asi_emergencyStop();
         }
         else if (set_val < 0 || set_val > 10000) {
@@ -218,7 +228,9 @@ void loop()
         char* write_end_ptr = (char*)&computer_cmd_buff[computer_cmd_buff_idx];
         int set_val = strtol((const char*)&computer_cmd_buff[6], &read_end_ptr, 10);
         if ((uint32_t)read_end_ptr != (uint32_t)write_end_ptr) {
+          #ifndef __AVR__
           Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
+          #endif
           asi_emergencyStop();
         }
         else if (set_val < 0 || set_val > 10000) {
@@ -342,7 +354,9 @@ void loop()
       }
       computer_cmd_buff_idx = 0;
     }
+    #ifndef __AVR__
     Serial.send_now();
+    #endif
   }
   #endif
 }
@@ -396,6 +410,8 @@ void ControlLoop()
 void bridge_task(void)
 {
   HardwareSerial* tgt = NULL;
+  static uint64_t us = 0;
+  char sent = 0;
   if (bacdoor != 0) {
     tgt = &Serial1;
   }
@@ -406,14 +422,31 @@ void bridge_task(void)
   {
     uint8_t c;
     c = Serial.read();
+    #ifdef __AVR__
+    if (bacdoor != 0) {
+      UCSR1B &= ~_BV(RXEN1);
+      digitalWrite(MODBUS_DIR_PIN, HIGH);
+      us = micros();
+    }
+    #endif
     tgt->write(c);
   }
+  #ifdef __AVR__
+  if (us != 0 && (micros() - us) > 170) {
+    digitalWrite(MODBUS_DIR_PIN, LOW);
+    us = 0;
+    Serial1.flush();
+    UCSR1B |= _BV(RXEN1);
+  }
+  #endif
   while (tgt->available() > 0)
   {
     uint8_t c;
     c = tgt->read();
     Serial.write(c);
   }
+  #ifndef __AVR__
   Serial.send_now();
+  #endif
 }
 

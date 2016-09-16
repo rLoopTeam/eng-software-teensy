@@ -31,7 +31,20 @@ void ModRTU_Send(uint8_t addr, uint8_t func, uint8_t* buf, uint8_t n)
   #endif
   //*/
 
+  #ifdef __AVR__
+  UCSR1B &= ~_BV(RXEN1);
+  digitalWrite(MODBUS_DIR_PIN, HIGH);
+  #endif
   Serial1.write(modbus_buff, 2 + n + 2);
+  #ifdef __AVR__
+  while (!(UCSR1A & _BV(TXC1))) {
+    
+  }
+  digitalWrite(MODBUS_DIR_PIN, LOW);
+  delayMicroseconds(200);
+  Serial1.flush();
+  UCSR1B |= _BV(RXEN1);
+  #endif
 }
 
 void ModRTU_RequestParam(uint16_t param, uint16_t len)
