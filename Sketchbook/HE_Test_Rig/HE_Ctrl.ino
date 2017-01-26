@@ -64,9 +64,14 @@ void asi_setupDac()
   analogWriteResolution(DAC_BITS);
   #endif
   analogWrite(DAC_PIN, 0);
+  #ifndef __AVR__
   ModRTF_PresetParam(ArxPaxRegAddr_Throttle_full_voltage, 3 * 4096);
+  #else
+  ModRTF_PresetParam(ArxPaxRegAddr_Throttle_full_voltage, 5 * 4096);
+  #endif
   delay(100);
-  ModRTF_PresetParam(ArxPaxRegAddr_Throttle_off_voltage, 4096 / 2);
+  //ModRTF_PresetParam(ArxPaxRegAddr_Throttle_off_voltage, 4096 / 2);
+  ModRTF_PresetParam(ArxPaxRegAddr_Rated_motor_speed, 5000);
   delay(1000); // long enough to receive all packets we don't care about
   Serial1.flush();
   asi_pendingReply = 0;

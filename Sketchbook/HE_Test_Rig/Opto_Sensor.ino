@@ -93,3 +93,14 @@ void optoncdt_task()
   // some junk data might exist but only at the very start
 }
 
+double optoncdt_convertMM(uint32_t x)
+{
+	double y = x;
+	y *= 102.0d;
+	y /= 65520.0d;
+	y -= 1.0d;
+	y *= 50.0d;
+	y /= 100.0d;
+	return y;
+}
+

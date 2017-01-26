@@ -27,6 +27,9 @@ extern uint16_t asi_lastThrottle;
 extern int8_t asi_lastReqIdx;
 extern uint8_t asi_maxReqIdx;
 
+char throttleNeedRamp = 0;
+uint16_t throttleRampValue = 0;
+
 char canStart = 0;
 char bothReady = 0;
 uint32_t startTime = 0;
@@ -96,6 +99,7 @@ uint16_t computer_cmd_buff_idx = 0;
 void loop()
 {
   static uint64_t last_report_time = 0;
+  static uint64_t last_ramp_time = 0;
   uint32_t now;
 
   if (bacdoor != 0 || ild1320 != 0)
@@ -141,6 +145,8 @@ void loop()
     Serial.print(asi_lastThrottle, DEC);
     Serial.print(",");
     Serial.print(optoncdt_value, DEC);
+    Serial.print(",");
+	Serial.print(optoncdt_convertMM(optoncdt_value), 2);
     Serial.print(",");
 
     for (di = 0; di <= asi_maxReqIdx; di++)
@@ -211,16 +217,26 @@ void loop()
           Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
           #endif
           asi_emergencyStop();
+		  throttleNeedRamp = 0;
         }
         else if (set_val < 0 || set_val > 10000) {
           Serial.println("value out of range");
           asi_emergencyStop();
+		  throttleNeedRamp = 0;
         }
         else {
           #ifdef DEBUG
           Serial.println("CMD THROTTLE");
           #endif
-          asi_setThrottle(set_val);
+		  if (asi_lastThrottle == 0 && set_val == 10000) {
+			throttleNeedRamp = 1;
+			throttleRampValue = 0;
+			last_ramp_time = millis();
+		  }
+		  else {
+			asi_setThrottle(set_val);
+			throttleNeedRamp = 0;
+          }
         }
       }
       else if (strncmp((const char*)computer_cmd_buff, "SETRPM", 6) == 0) {
@@ -232,16 +248,19 @@ void loop()
           Serial.printf("failed to parse int %08X %08X\r\n", (uint32_t)read_end_ptr, (uint32_t)write_end_ptr);
           #endif
           asi_emergencyStop();
+		  throttleNeedRamp = 0;
         }
         else if (set_val < 0 || set_val > 10000) {
           Serial.println("value out of range");
           asi_emergencyStop();
+		  throttleNeedRamp = 0;
         }
         else {
           #ifdef DEBUG
           Serial.println("CMD SETRPM");
           #endif
           asi_setRpm(set_val);
+		  throttleNeedRamp = 0;
         }
       }
       else if (strncmp((const char*)computer_cmd_buff, "SEND", 4) == 0) {
@@ -359,6 +378,16 @@ void loop()
     #endif
   }
   #endif
+
+  if (throttleNeedRamp != 0 && (now - last_ramp_time) >= 10) {
+	last_ramp_time = now;
+	throttleRampValue += 300;
+	if (throttleRampValue >= 10000) {
+		throttleRampValue = 10000;
+		throttleNeedRamp = 0;
+	}
+	asi_setThrottle(throttleRampValue);
+  }
 }
 
 #ifdef MODE_I2C
